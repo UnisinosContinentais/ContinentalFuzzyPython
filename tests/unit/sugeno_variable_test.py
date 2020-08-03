@@ -6,15 +6,15 @@ date: July, 2020
 """
 import unittest
 
-from continentalfuzzy.domain.SugenoVariable import SugenoVariable
+from continentalfuzzy.domain.sugeno.SugenoVariable import SugenoVariable
 from continentalfuzzy.domain.definition.Functions import Functions
 from continentalfuzzy.domain.membership_function.GaussMF import GaussMF
 from continentalfuzzy.domain.membership_function.TriMF import TriMF
-from continentalfuzzy.domain.sugeno_variable.SugenoInput import SugenoInput
-from continentalfuzzy.domain.sugeno_variable.SugenoOutput import SugenoOutput
-from continentalfuzzy.service.sugeno_membership_functions.GaussMembershipFunction import \
+from continentalfuzzy.domain.sugeno.variable.SugenoInput import SugenoInput
+from continentalfuzzy.domain.sugeno.variable.SugenoOutput import SugenoOutput
+from continentalfuzzy.service.sugeno.membership_functions.GaussMembershipFunction import \
     GaussMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.TriangularMembershipFuntion import \
+from continentalfuzzy.service.sugeno.membership_functions.TriangularMembershipFuntion import \
     TriangularMembershipFunction
 
 

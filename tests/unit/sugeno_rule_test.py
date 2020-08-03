@@ -5,16 +5,16 @@ email: rmodena@unisinos.br
 date: July, 2020
 """
 import unittest
-from continentalfuzzy.domain.SugenoRule import SugenoRule
-from continentalfuzzy.domain.sugeno_rule_variable.SugenoRuleInput import \
+from continentalfuzzy.domain.sugeno.SugenoRule import SugenoRule
+from continentalfuzzy.domain.sugeno.rule_variable.SugenoRuleInput import \
     SugenoRuleInput
-from continentalfuzzy.domain.sugeno_rule_variable.SugenoRuleOutput import \
+from continentalfuzzy.domain.sugeno.rule_variable.SugenoRuleOutput import \
     SugenoRuleOutput
-from continentalfuzzy.service.sugeno_membership_functions.LinearMembershipFunction import \
+from continentalfuzzy.service.sugeno.membership_functions.LinearMembershipFunction import \
     LinearMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.TriangularMembershipFuntion import \
+from continentalfuzzy.service.sugeno.membership_functions.TriangularMembershipFuntion import \
     TriangularMembershipFunction
-from continentalfuzzy.service.sugeno_operators.MinAndMethod import MinAndMethod
+from continentalfuzzy.service.sugeno.operators.MinAndMethod import MinAndMethod
 
 
 class SugenoRuleTest(unittest.TestCase):

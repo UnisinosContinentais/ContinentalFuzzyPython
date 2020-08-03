@@ -102,8 +102,10 @@ class TestFuzzyTest(unittest.TestCase):
                                0.2,
                                0.3])
         my_output = buffer.getvalue()
-        correct_output = ("['Processo executado com sucesso!']\nProcessResult."
-                          "RESULT_SUCCESS\n1.801431957597389\n")
+        # correct_output = ("['Processo executado com sucesso!']\nProcessResult."
+        #                   "RESULT_SUCCESS\n1.801431957597389\n")
+
+        correct_output = ("1.801431957597389\n")
 
         self.assertEqual(my_output, correct_output,
                          msg='Test execute')

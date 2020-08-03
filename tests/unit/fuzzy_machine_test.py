@@ -8,61 +8,61 @@ import unittest
 import numpy as np
 import skfuzzy as fuzz
 from skfuzzy import control as ctrl
-from continentalfuzzy.domain.definition.MamdaniAndMethods import MamdaniAndMethods
-from continentalfuzzy.domain.FuzzyMachine import FuzzyMachine
+from continentalfuzzy.domain.definition.mamdani.MamdaniAndMethods import MamdaniAndMethods
+from continentalfuzzy.domain.MamdaniController import MamdaniController
 from continentalfuzzy.domain.definition.Connections import Connections
-from continentalfuzzy.domain.definition.MamdaniOrMethods import MamdaniOrMethods
+from continentalfuzzy.domain.definition.mamdani.MamdaniOrMethods import MamdaniOrMethods
 from continentalfuzzy.service.SystemService import SystemService
 from continentalfuzzy.util.FuzzyUtil import FuzzyUtil
 
 
 class FuzzyMachineTest(unittest.TestCase):
     def test_DICT_AND_METHODS_min(self):
-        self.assertEqual(FuzzyMachine.DICT_AND_METHODS[MamdaniAndMethods.min],
+        self.assertEqual(MamdaniController.DICT_AND_METHODS[MamdaniAndMethods.min],
                          np.min,
                          msg='Test DICT_AND_METHODS min')
 
     def test_DICT_AND_METHODS_not_found(self):
         my_exception = "maybe"
         with self.assertRaises(Exception) as context:
-            _ = FuzzyMachine.DICT_AND_METHODS['maybe']
+            _ = MamdaniController.DICT_AND_METHODS['maybe']
 
         self.assertEqual(my_exception, context.exception.args[0],
                          msg="Test DICT_AND_METHODS not found")
 
     def test_DICT_OR_METHODS_max(self):
-        self.assertEqual(FuzzyMachine.DICT_OR_METHODS[MamdaniOrMethods.max],
+        self.assertEqual(MamdaniController.DICT_OR_METHODS[MamdaniOrMethods.max],
                          np.max,
                          msg='Test DICT_OR_METHODS max')
 
     def test_DICT_OR_METHODS_not_found(self):
         my_exception = "maybe"
         with self.assertRaises(Exception) as context:
-            _ = FuzzyMachine.DICT_OR_METHODS['maybe']
+            _ = MamdaniController.DICT_OR_METHODS['maybe']
 
         self.assertEqual(my_exception, context.exception.args[0],
                          msg="Test DICT_OR_METHODS not found")
 
     def test_DICT_CONNECTORS_and(self):
-        self.assertEqual(FuzzyMachine.DICT_CONNECTORS[Connections.AND],
+        self.assertEqual(MamdaniController.DICT_CONNECTORS[Connections.AND],
                          '&',
                          msg='Test DICT_CONNECTORSS and')
 
     def test_DICT_CONNECTORS_or(self):
-        self.assertEqual(FuzzyMachine.DICT_CONNECTORS[Connections.OR],
+        self.assertEqual(MamdaniController.DICT_CONNECTORS[Connections.OR],
                          '|',
                          msg='Test DICT_CONNECTORS or')
 
     def test_DICT_CONNECTORS_not_found(self):
         my_exception = "maybe"
         with self.assertRaises(Exception) as context:
-            _ = FuzzyMachine.DICT_CONNECTORS['maybe']
+            _ = MamdaniController.DICT_CONNECTORS['maybe']
 
         self.assertEqual(my_exception, context.exception.args[0],
                          msg="Test DICT_CONNECTORS not found")
 
     def test_create_FuzzyController_1(self):
-        my_machine = FuzzyMachine()
+        my_machine = MamdaniController()
 
         self.assertEqual(dict(), my_machine.inputs, msg='Test inputs')
         self.assertEqual(dict(), my_machine.outputs, msg='Test outputs')
@@ -204,11 +204,11 @@ class FuzzyMachineTest(unittest.TestCase):
 
         my_controller = ctrl.ControlSystem(my_rules)
         my_simulator = ctrl.ControlSystemSimulation(my_controller)
-        my_f_controller = FuzzyMachine(my_inputs,
-                                       my_outputs,
-                                       my_rules,
-                                       my_controller,
-                                       my_simulator)
+        my_f_controller = MamdaniController(my_inputs,
+                                            my_outputs,
+                                            my_rules,
+                                            my_controller,
+                                            my_simulator)
 
         self.assertEqual(my_inputs, my_f_controller.inputs,
                          msg='Test inputs')
@@ -314,13 +314,13 @@ class FuzzyMachineTest(unittest.TestCase):
                      'Slope': slope,
                      'Depth': depth}
 
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_f_controller.inputs = my_inputs
         self.assertEqual(my_inputs, my_f_controller.inputs,
                          msg='Test inputs')
 
     def test_property_inputs_exception_1(self):
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_exception = "O parâmetro não é um dicionário!"
         with self.assertRaises(Exception) as context:
             my_f_controller.inputs = 10
@@ -329,7 +329,7 @@ class FuzzyMachineTest(unittest.TestCase):
                          msg='Test property inputs exception 1')
 
     def test_property_inputs_exception_2(self):
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_exception = "O nome do antecedente não é uma string!"
         with self.assertRaises(Exception) as context:
             my_f_controller.inputs = {10: 10}
@@ -338,7 +338,7 @@ class FuzzyMachineTest(unittest.TestCase):
                          msg='Test property inputs exception 2')
 
     def test_property_inputs_exception_3(self):
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_exception = "O valor não é uma instância da classe Antecedent!"
         with self.assertRaises(Exception) as context:
             my_f_controller.inputs = {'distance': 10}
@@ -396,13 +396,13 @@ class FuzzyMachineTest(unittest.TestCase):
 
         my_inputs = {'Distance': distance}
 
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_f_controller.add_input('Distance', distance)
         self.assertEqual(my_inputs, my_f_controller.inputs,
                          msg='Test inputs')
 
     def test_add_input_exception_1(self):
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_exception = "O nome do antecedente não é uma string!"
         with self.assertRaises(Exception) as context:
             my_f_controller.add_input(10, 10)
@@ -411,7 +411,7 @@ class FuzzyMachineTest(unittest.TestCase):
                          msg='Test add_input exception 1')
 
     def test_add_input_exception_2(self):
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_exception = "O valor não é uma instância da classe Antecedent!"
         with self.assertRaises(Exception) as context:
             my_f_controller.add_input('Distance', 10)
@@ -471,13 +471,13 @@ class FuzzyMachineTest(unittest.TestCase):
 
         my_outputs = {'output1': output1}
 
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_f_controller.outputs = my_outputs
         self.assertEqual(my_outputs, my_f_controller.outputs,
                          msg='Test outputs')
 
     def test_property_outputs_exception_1(self):
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_exception = "O parâmetro não é um dicionário!"
         with self.assertRaises(Exception) as context:
             my_f_controller.outputs = 10
@@ -486,7 +486,7 @@ class FuzzyMachineTest(unittest.TestCase):
                          msg='Test property outputs exception 1')
 
     def test_property_outputs_exception_2(self):
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_exception = "O nome do consequente não é uma string!"
         with self.assertRaises(Exception) as context:
             my_f_controller.outputs = {10: 10}
@@ -495,7 +495,7 @@ class FuzzyMachineTest(unittest.TestCase):
                          msg='Test property outputs exception 2')
 
     def test_property_outputs_exception_3(self):
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_exception = "O valor não é uma instância da classe Consequent!"
         with self.assertRaises(Exception) as context:
             my_f_controller.outputs = {'distance': 10}
@@ -555,13 +555,13 @@ class FuzzyMachineTest(unittest.TestCase):
 
         my_outputs = {'output1': output1}
 
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_f_controller.add_output('output1', output1)
         self.assertEqual(my_outputs, my_f_controller.outputs,
                          msg='Test add_output')
 
     def test_add_output_exception_1(self):
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_exception = "O nome do consequente não é uma string!"
         with self.assertRaises(Exception) as context:
             my_f_controller.add_output(10, 10)
@@ -570,7 +570,7 @@ class FuzzyMachineTest(unittest.TestCase):
                          msg='Test add_output exception 1')
 
     def test_add_output_exception_2(self):
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_exception = "O valor não é uma instância da classe Consequent!"
         with self.assertRaises(Exception) as context:
             my_f_controller.add_output('Distance', 10)
@@ -704,13 +704,13 @@ class FuzzyMachineTest(unittest.TestCase):
                             consequent=(output1['Lagoon'] % 1.0),
                             and_func=np.fmin, or_func=np.fmax)
 
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_f_controller.rules = [my_rule]
 
         self.assertEqual([my_rule], my_f_controller.rules, msg='Test rules')
 
     def test_property_rules_exception_1(self):
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_exception = "O parâmetro não é uma lista!"
         with self.assertRaises(Exception) as context:
             my_f_controller.rules = 10
@@ -719,7 +719,7 @@ class FuzzyMachineTest(unittest.TestCase):
                          msg='Test property rules exception 1')
 
     def test_property_rules_exception_2(self):
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_exception = "O valor não é uma instância da classe Rule!"
         with self.assertRaises(Exception) as context:
             my_f_controller.rules = [10]
@@ -853,14 +853,14 @@ class FuzzyMachineTest(unittest.TestCase):
                             consequent=(output1['Lagoon'] % 1.0),
                             and_func=np.fmin, or_func=np.fmax)
 
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_f_controller.add_rule(my_rule)
 
         self.assertEqual(my_rule, my_f_controller.rules,
                          msg='Test add_rule')
 
     def test_add_rule_exception_1(self):
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_exception = "O valor não é uma instância da classe Rule!"
         with self.assertRaises(Exception) as context:
             my_f_controller.add_rule(10)
@@ -870,13 +870,13 @@ class FuzzyMachineTest(unittest.TestCase):
 
     def test_property_controller(self):
         my_controller = ctrl.ControlSystem()
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_f_controller.controller = my_controller
         self.assertEqual(my_controller, my_f_controller.controller,
                          msg='Test controller')
 
     def test_property_controller_exception_1(self):
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_exception = ("O parâmetro não é uma instância da classe "
                         "ControlSystem!")
         with self.assertRaises(Exception) as context:
@@ -888,13 +888,13 @@ class FuzzyMachineTest(unittest.TestCase):
     def test_property_simulator(self):
         my_controller = ctrl.ControlSystem()
         my_simulator = ctrl.ControlSystemSimulation(my_controller)
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_f_controller.simulator = my_simulator
         self.assertEqual(my_simulator, my_f_controller.simulator,
                          msg='Test simulator')
 
     def test_property_simulator_exception_1(self):
-        my_f_controller = FuzzyMachine()
+        my_f_controller = MamdaniController()
         my_exception = ("O parâmetro não é uma instância da classe "
                         "ControlSystemSimulation!")
         with self.assertRaises(Exception) as context:

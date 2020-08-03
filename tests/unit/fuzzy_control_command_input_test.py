@@ -14,7 +14,7 @@ class FuzzyControlCommandInputTest(unittest.TestCase):
         my_command_input = FuzzyControlCommandInput()
 
         self.assertIsNone(my_command_input.filename, msg='Test filename')
-        self.assertIsNone(my_command_input.fuzzy_inputs, msg='Test inputs')
+        self.assertEqual(dict(),my_command_input.fuzzy_inputs, msg='Test inputs')
         self.assertIsNone(my_command_input.fuzzy_output, msg='Test outputs')
 
     def test_property_filename(self):

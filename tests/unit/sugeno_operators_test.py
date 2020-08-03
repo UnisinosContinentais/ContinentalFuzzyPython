@@ -6,18 +6,18 @@ date: July, 2020
 """
 import unittest
 
-from continentalfuzzy.domain.sugeno_rule_variable.SugenoRuleInput import \
+from continentalfuzzy.domain.sugeno.rule_variable.SugenoRuleInput import \
     SugenoRuleInput
-from continentalfuzzy.service.sugeno_membership_functions.GaussMembershipFunction import \
+from continentalfuzzy.service.sugeno.membership_functions.GaussMembershipFunction import \
     GaussMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.GaussTwoMembershipFunction import \
+from continentalfuzzy.service.sugeno.membership_functions.GaussTwoMembershipFunction import \
     GaussTwoMembershipFunction
-from continentalfuzzy.service.sugeno_operators.MaxOrMethod import MaxOrMethod
-from continentalfuzzy.service.sugeno_operators.MinAndMethod import MinAndMethod
-from continentalfuzzy.service.sugeno_operators.NotMethod import NotMethod
-from continentalfuzzy.service.sugeno_operators.ProborOrMethod import \
+from continentalfuzzy.service.sugeno.operators.MaxOrMethod import MaxOrMethod
+from continentalfuzzy.service.sugeno.operators.MinAndMethod import MinAndMethod
+from continentalfuzzy.service.sugeno.operators.NotMethod import NotMethod
+from continentalfuzzy.service.sugeno.operators.ProborOrMethod import \
     ProborOrMethod
-from continentalfuzzy.service.sugeno_operators.ProdAndMethod import \
+from continentalfuzzy.service.sugeno.operators.ProdAndMethod import \
     ProdAndMethod
 
 

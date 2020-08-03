@@ -26,13 +26,13 @@ class FuzzyControlApplicationServiceTest(unittest.TestCase):
         result = fuzzyControlApplicationService.process_fuzzy_control(
             fuzzyControlCommandInput)
 
-        self.assertEqual(result.messages[0], 'Processo executado com sucesso!',
-                         msg='Test messages')
+        # self.assertEqual(result.messages[0], 'Processo executado com sucesso!',
+        #                  msg='Test messages')
+        #
+        # self.assertEqual(result.status, ProcessResult.RESULT_SUCCESS,
+        #                  msg='Test status')
 
-        self.assertEqual(result.status, ProcessResult.RESULT_SUCCESS,
-                         msg='Test status')
-
-        self.assertEqual(round(result.result, 4), 1.6539,
+        self.assertEqual(round(result, 4), 1.6539,
                          msg='Test result')
 
     def test_process_fuzzy_control_2(self):
@@ -49,13 +49,13 @@ class FuzzyControlApplicationServiceTest(unittest.TestCase):
         result = fuzzyControlApplicationService.process_fuzzy_control(
             fuzzyControlCommandInput)
 
-        self.assertEqual(result.messages[0], 'Processo executado com sucesso!',
-                         msg='Test messages')
+        # self.assertEqual(result.messages[0], 'Processo executado com sucesso!',
+        #                  msg='Test messages')
+        #
+        # self.assertEqual(result.status, ProcessResult.RESULT_SUCCESS,
+        #                  msg='Test status')
 
-        self.assertEqual(result.status, ProcessResult.RESULT_SUCCESS,
-                         msg='Test status')
-
-        self.assertEqual(round(result.result, 4), 18.35,
+        self.assertEqual(round(result, 4), 18.35,
                          msg='Test result')
 
     def test_process_fuzzy_control_exception(self):
@@ -70,12 +70,12 @@ class FuzzyControlApplicationServiceTest(unittest.TestCase):
         result = fuzzyControlApplicationService.process_fuzzy_control(
             fuzzyControlCommandInput)
 
-        self.assertEqual(result.messages[0],
-                         'Não foi possível executar o processo do fuzzy!',
-                         msg='Test messages')
+        # self.assertEqual(result.messages[0],
+        #                  'Não foi possível executar o processo do fuzzy!',
+        #                  msg='Test messages')
+        #
+        # self.assertEqual(result.status, ProcessResult.RESULT_ERROR,
+        #                  msg='Test status')
 
-        self.assertEqual(result.status, ProcessResult.RESULT_ERROR,
-                         msg='Test status')
-
-        self.assertEqual(round(result.result, 4), 0.0,
+        self.assertEqual(round(result, 4), 0.0,
                          msg='Test result')

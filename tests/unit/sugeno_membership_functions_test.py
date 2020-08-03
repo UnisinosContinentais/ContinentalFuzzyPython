@@ -5,15 +5,15 @@ email: rmodena@unisinos.br
 date: July, 2020
 """
 import unittest
-from continentalfuzzy.service.sugeno_membership_functions.GaussMembershipFunction import \
+from continentalfuzzy.service.sugeno.membership_functions.GaussMembershipFunction import \
     GaussMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.GaussTwoMembershipFunction import \
+from continentalfuzzy.service.sugeno.membership_functions.GaussTwoMembershipFunction import \
     GaussTwoMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.LinearMembershipFunction import \
+from continentalfuzzy.service.sugeno.membership_functions.LinearMembershipFunction import \
     LinearMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.TrapezoidalMembershipFunction import \
+from continentalfuzzy.service.sugeno.membership_functions.TrapezoidalMembershipFunction import \
     TrapezoidalMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.TriangularMembershipFuntion import \
+from continentalfuzzy.service.sugeno.membership_functions.TriangularMembershipFuntion import \
     TriangularMembershipFunction
 
 

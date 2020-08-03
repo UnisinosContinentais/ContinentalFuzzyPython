@@ -13,22 +13,22 @@ from continentalfuzzy.domain.definition.ControllerType import ControllerType
 from continentalfuzzy.domain.definition.DefuzzMethods import DefuzzMethods
 from continentalfuzzy.domain.definition.Functions import Functions
 from continentalfuzzy.domain.definition.ImpMethods import ImpMethods
-from continentalfuzzy.domain.definition.MamdaniAggMethods import MamdaniAggMethods
-from continentalfuzzy.domain.definition.MamdaniAndMethods import MamdaniAndMethods
-from continentalfuzzy.domain.definition.MamdaniDefuzzMethods import MamdaniDefuzzMethods
-from continentalfuzzy.domain.definition.MamdaniFunctions import MamdaniFunctions
-from continentalfuzzy.domain.definition.MamdaniImpMethods import MamdaniImpMethods
-from continentalfuzzy.domain.definition.MamdaniOrMethods import MamdaniOrMethods
+from continentalfuzzy.domain.definition.mamdani.MamdaniAggMethods import MamdaniAggMethods
+from continentalfuzzy.domain.definition.mamdani.MamdaniAndMethods import MamdaniAndMethods
+from continentalfuzzy.domain.definition.mamdani.MamdaniDefuzzMethods import MamdaniDefuzzMethods
+from continentalfuzzy.domain.definition.mamdani.MamdaniFunctions import MamdaniFunctions
+from continentalfuzzy.domain.definition.mamdani.MamdaniImpMethods import MamdaniImpMethods
+from continentalfuzzy.domain.definition.mamdani.MamdaniOrMethods import MamdaniOrMethods
 from continentalfuzzy.domain.definition.OrMethods import OrMethods
-from continentalfuzzy.domain.definition.SugenoAggMethods import SugenoAggMethods
-from continentalfuzzy.domain.definition.SugenoAndMethods import SugenoAndMethods
-from continentalfuzzy.domain.definition.SugenoDefuzzMethods import \
+from continentalfuzzy.domain.definition.sugeno.SugenoAggMethods import SugenoAggMethods
+from continentalfuzzy.domain.definition.sugeno.SugenoAndMethods import SugenoAndMethods
+from continentalfuzzy.domain.definition.sugeno.SugenoDefuzzMethods import \
     SugenoDefuzzMethods
-from continentalfuzzy.domain.definition.SugenoImpMethods import SugenoImpMethods
-from continentalfuzzy.domain.definition.SugenoInputFunctions import \
+from continentalfuzzy.domain.definition.sugeno.SugenoImpMethods import SugenoImpMethods
+from continentalfuzzy.domain.definition.sugeno.SugenoInputFunctions import \
     SugenoInputFunctions
-from continentalfuzzy.domain.definition.SugenoOrMethods import SugenoOrMethods
-from continentalfuzzy.domain.definition.SugenoOutputFunctions import \
+from continentalfuzzy.domain.definition.sugeno.SugenoOrMethods import SugenoOrMethods
+from continentalfuzzy.domain.definition.sugeno.SugenoOutputFunctions import \
     SugenoOutputFunctions
 
 

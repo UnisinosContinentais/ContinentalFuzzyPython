@@ -19,21 +19,21 @@ from continentalfuzzy.domain.rule_variable.RuleOutput import RuleOutput
 from continentalfuzzy.service.SugenoControllerService import \
     SugenoControllerService
 from continentalfuzzy.service.SystemService import SystemService
-from continentalfuzzy.service.sugeno_membership_functions.GaussMembershipFunction import \
+from continentalfuzzy.service.sugeno.membership_functions.GaussMembershipFunction import \
     GaussMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.GaussTwoMembershipFunction import \
+from continentalfuzzy.service.sugeno.membership_functions.GaussTwoMembershipFunction import \
     GaussTwoMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.LinearMembershipFunction import \
+from continentalfuzzy.service.sugeno.membership_functions.LinearMembershipFunction import \
     LinearMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.TrapezoidalMembershipFunction import \
+from continentalfuzzy.service.sugeno.membership_functions.TrapezoidalMembershipFunction import \
     TrapezoidalMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.TriangularMembershipFuntion import \
+from continentalfuzzy.service.sugeno.membership_functions.TriangularMembershipFuntion import \
     TriangularMembershipFunction
-from continentalfuzzy.service.sugeno_operators.MaxOrMethod import MaxOrMethod
-from continentalfuzzy.service.sugeno_operators.MinAndMethod import MinAndMethod
-from continentalfuzzy.service.sugeno_operators.ProborOrMethod import \
+from continentalfuzzy.service.sugeno.operators.MaxOrMethod import MaxOrMethod
+from continentalfuzzy.service.sugeno.operators.MinAndMethod import MinAndMethod
+from continentalfuzzy.service.sugeno.operators.ProborOrMethod import \
     ProborOrMethod
-from continentalfuzzy.service.sugeno_operators.ProdAndMethod import \
+from continentalfuzzy.service.sugeno.operators.ProdAndMethod import \
     ProdAndMethod
 
 

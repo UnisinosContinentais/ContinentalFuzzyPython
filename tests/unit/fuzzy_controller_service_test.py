@@ -8,10 +8,10 @@ import unittest
 import numpy as np
 import skfuzzy as fuzz
 from skfuzzy import control as ctrl
-from continentalfuzzy.domain.definition.MamdaniAndMethods import MamdaniAndMethods
-from continentalfuzzy.domain.definition.MamdaniDefuzzMethods import MamdaniDefuzzMethods
-from continentalfuzzy.domain.definition.MamdaniOrMethods import MamdaniOrMethods
-from continentalfuzzy.service.FuzzyControllerService import FuzzyController
+from continentalfuzzy.domain.definition.mamdani.MamdaniAndMethods import MamdaniAndMethods
+from continentalfuzzy.domain.definition.mamdani.MamdaniDefuzzMethods import MamdaniDefuzzMethods
+from continentalfuzzy.domain.definition.mamdani.MamdaniOrMethods import MamdaniOrMethods
+from continentalfuzzy.service.MamdaniControllerService import MamdaniControllerService
 from continentalfuzzy.service.SystemService import SystemService
 from continentalfuzzy.util.FuzzyUtil import FuzzyUtil
 
@@ -55,7 +55,7 @@ class FuzzyControllerServiceTest(unittest.TestCase):
                                        sigma=0.42,
                                        mean=1)
 
-        my_f_controller = FuzzyController()
+        my_f_controller = MamdaniControllerService()
         my_f_controller.create_inputs_from_fis(my_inputs_FIS)
         my_machine = my_f_controller.fuzzy_machine
         c_distance = my_machine.inputs['Distance']
@@ -124,7 +124,7 @@ class FuzzyControllerServiceTest(unittest.TestCase):
         output1['Basin'] = fuzz.gaussmf(x=o_universe_1,
                                         sigma=0.4247,
                                         mean=4)
-        my_f_controller = FuzzyController()
+        my_f_controller = MamdaniControllerService()
 
         my_f_controller.create_outputs_from_fis(MamdaniDefuzzMethods.centroid,
                                                 my_outputs_FIS)
@@ -271,7 +271,7 @@ class FuzzyControllerServiceTest(unittest.TestCase):
                               consequent=(output1['Lagoon'] % 1.0),
                               and_func=np.fmin, or_func=np.fmax)]
 
-        my_f_controller = FuzzyController()
+        my_f_controller = MamdaniControllerService()
         my_f_controller.create_inputs_from_fis(my_inputs_FIS)
         my_f_controller.create_outputs_from_fis(MamdaniDefuzzMethods.centroid,
                                                 my_outputs_FIS)
@@ -310,7 +310,7 @@ class FuzzyControllerServiceTest(unittest.TestCase):
         my_output = my_system.outputs[1]
         my_range = my_output.range
 
-        my_f_controller = FuzzyController()
+        my_f_controller = MamdaniControllerService()
         my_f_controller.create_from_fis_system(my_system)
         my_machine = my_f_controller.fuzzy_machine
 
@@ -466,7 +466,7 @@ class FuzzyControllerServiceTest(unittest.TestCase):
             msg='Test consequent')
 
     def test_create_from_fis_system_exception_1(self):
-        my_f_controller = FuzzyController()
+        my_f_controller = MamdaniControllerService()
 
         my_exception = "O valor não é uma instância da classe FISSystem!"
         with self.assertRaises(Exception) as context:
@@ -480,7 +480,7 @@ class FuzzyControllerServiceTest(unittest.TestCase):
         fisSystemService = SystemService()
         fisSystem = fisSystemService.import_file(my_filename)
 
-        fuzzyController = FuzzyController()
+        fuzzyController = MamdaniControllerService()
         fuzzyController.create_from_fis_system(fisSystem)
 
         fuzzy_result = fuzzyController.fuzzy_calc_single_value(

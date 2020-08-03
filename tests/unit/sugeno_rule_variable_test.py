@@ -6,14 +6,14 @@ date: July, 2020
 """
 import unittest
 
-from continentalfuzzy.domain.SugenoRuleVariable import SugenoRuleVariable
-from continentalfuzzy.domain.sugeno_rule_variable.SugenoRuleInput import \
+from continentalfuzzy.domain.sugeno.SugenoRuleVariable import SugenoRuleVariable
+from continentalfuzzy.domain.sugeno.rule_variable.SugenoRuleInput import \
     SugenoRuleInput
-from continentalfuzzy.domain.sugeno_rule_variable.SugenoRuleOutput import \
+from continentalfuzzy.domain.sugeno.rule_variable.SugenoRuleOutput import \
     SugenoRuleOutput
-from continentalfuzzy.service.sugeno_membership_functions.TrapezoidalMembershipFunction import \
+from continentalfuzzy.service.sugeno.membership_functions.TrapezoidalMembershipFunction import \
     TrapezoidalMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.TriangularMembershipFuntion import \
+from continentalfuzzy.service.sugeno.membership_functions.TriangularMembershipFuntion import \
     TriangularMembershipFunction
 
 
