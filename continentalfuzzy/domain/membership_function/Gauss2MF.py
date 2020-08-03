@@ -7,7 +7,7 @@ date: July, 2020
 
 from typing import Optional
 from continentalfuzzy.domain.MembershipFunction import MembershipFunction
-from continentalfuzzy.domain.definition.MamdaniFunctions import MamdaniFunctions
+from continentalfuzzy.domain.definition.Functions import Functions
 
 
 class Gauss2MF(MembershipFunction):
@@ -44,7 +44,7 @@ class Gauss2MF(MembershipFunction):
             Número float contendo a média da segunda gaussiana.
         """
 
-        super().__init__(mf_name, MamdaniFunctions.gauss2mf)
+        super().__init__(mf_name, Functions.gauss2mf)
         self.__sigma1 = None
         self.__mean1 = None
         self.__sigma2 = None

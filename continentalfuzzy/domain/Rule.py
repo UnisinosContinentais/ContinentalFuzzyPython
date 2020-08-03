@@ -112,12 +112,14 @@ class Rule:
             Float contendo o peso da regra.
         """
 
-        # Verifica se o parâmetro informado é um número float
-        if not isinstance(rule_weight, float):
-            raise Exception(
-                f"O valor não é um número float!")
+        # Verifica se o parâmetro é um número float
+        try:
+            self.__weight = float(rule_weight)
+        except Exception:
+            raise Exception("O parâmetro peso não é do tipo float!")
 
-        self.__weight = rule_weight
+        if rule_weight < 0 or rule_weight > 1:
+            raise Exception("O peso precisa estar no intervalo 0 e 1!")
 
     @property
     def connection(self) -> Connections:

@@ -7,8 +7,8 @@ date: July, 2020
 from enum import Enum, auto
 
 
-class DefuzzMethods(Enum):
+class MamdaniDefuzzMethods(Enum):
     """
-    Enum com os métodos de defuzzificação implementados.
+    Enum com os métodos de defuzzificação implementados para o Mamdani.
     """
     centroid = auto()

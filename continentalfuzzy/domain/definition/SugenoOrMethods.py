@@ -7,9 +7,9 @@ date: July, 2020
 from enum import Enum, auto
 
 
-class OrMethods(Enum):
+class SugenoOrMethods(Enum):
     """
-    Enum com os métodos OR implementados.
+    Enum com os métodos OR implementados para os Takagi-Sugeno.
     """
     max = auto()
     probor = auto()

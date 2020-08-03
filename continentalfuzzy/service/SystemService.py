@@ -6,23 +6,33 @@ date: July, 2020
 """
 from typing import List
 
-from continentalfuzzy.domain.variable.Input import Input
-from continentalfuzzy.domain.variable.Output import Output
-from continentalfuzzy.service.VariableService import VariableService
+from continentalfuzzy.domain.definition.AggMethods import AggMethods
+from continentalfuzzy.domain.definition.AndMethods import AndMethods
+from continentalfuzzy.domain.definition.DefuzzMethods import DefuzzMethods
+from continentalfuzzy.domain.definition.ImpMethods import ImpMethods
+from continentalfuzzy.domain.definition.OrMethods import OrMethods
+from continentalfuzzy.domain.definition.SugenoAggMethods import SugenoAggMethods
+from continentalfuzzy.domain.definition.SugenoAndMethods import SugenoAndMethods
+from continentalfuzzy.domain.definition.SugenoDefuzzMethods import \
+    SugenoDefuzzMethods
+from continentalfuzzy.domain.definition.SugenoImpMethods import SugenoImpMethods
+from continentalfuzzy.domain.definition.SugenoOrMethods import SugenoOrMethods
+from continentalfuzzy.service.InputService import InputService
+from continentalfuzzy.service.OutputService import OutputService
 from continentalfuzzy.domain.Rule import Rule
 from continentalfuzzy.domain.System import System
 from continentalfuzzy.domain.rule_variable.RuleInput import RuleInput
 from continentalfuzzy.domain.rule_variable.RuleOutput import RuleOutput
-from continentalfuzzy.domain.definition.MamdaniAndMethods import AndMethods
-from continentalfuzzy.domain.definition.MamdaniAggMethods import AggMethods
+from continentalfuzzy.domain.definition.MamdaniAndMethods import MamdaniAndMethods
+from continentalfuzzy.domain.definition.MamdaniAggMethods import MamdaniAggMethods
 from continentalfuzzy.domain.definition.Blocks import Blocks
 from continentalfuzzy.domain.definition.Connections import Connections
 from continentalfuzzy.domain.definition.ControllerType import \
     ControllerType
 from continentalfuzzy.domain.definition.MamdaniDefuzzMethods import \
-    DefuzzMethods
-from continentalfuzzy.domain.definition.MamdaniImpMethods import ImpMethods
-from continentalfuzzy.domain.definition.MamdaniOrMethods import OrMethods
+    MamdaniDefuzzMethods
+from continentalfuzzy.domain.definition.MamdaniImpMethods import MamdaniImpMethods
+from continentalfuzzy.domain.definition.MamdaniOrMethods import MamdaniOrMethods
 
 
 class SystemService:
@@ -68,41 +78,109 @@ class SystemService:
                 self.system.num_outputs = int(l_attr[1])
             if l_attr[0] == 'NumRules':
                 self.system.num_rules = int(l_attr[1])
-            if l_attr[0] == 'AndMethod':
-                and_meth_name = l_attr[1][:-1].replace("'", "")
-                try:
+
+            if self.system.type == ControllerType.mamdani:
+                if l_attr[0] == 'AndMethod':
+                    and_meth_name = l_attr[1][:-1].replace("'", "")
+                    try:
+                        _ = MamdaniAndMethods[and_meth_name]
+                    except Exception:
+                        raise Exception(f"O método AND {and_meth_name} não foi "
+                                        f"implementado para inferência "
+                                        f"Mamdani!")
                     self.system.and_method = AndMethods[and_meth_name]
-                except Exception:
-                    raise Exception(f"O método AND {and_meth_name} não foi "
-                                    f"implementado!")
-            if l_attr[0] == 'OrMethod':
-                or_meth_name = l_attr[1][:-1].replace("'", "")
-                try:
+
+                if l_attr[0] == 'OrMethod':
+                    or_meth_name = l_attr[1][:-1].replace("'", "")
+                    try:
+                        _ = MamdaniOrMethods[or_meth_name]
+                    except Exception:
+                        raise Exception(f"O método OR {or_meth_name} não foi "
+                                        f"implementado para inferência "
+                                        f"Mamdani!")
                     self.system.or_method = OrMethods[or_meth_name]
-                except Exception:
-                    raise Exception(f"O método OR {or_meth_name} não foi "
-                                    f"implementado!")
-            if l_attr[0] == 'ImpMethod':
-                imp_meth_name = l_attr[1][:-1].replace("'", "")
-                try:
+
+                if l_attr[0] == 'ImpMethod':
+                    imp_meth_name = l_attr[1][:-1].replace("'", "")
+                    try:
+                        _ = MamdaniImpMethods[imp_meth_name]
+                    except Exception:
+                        raise Exception(
+                            f"O método de implicação {imp_meth_name} "
+                            f"não foi implementado para inferência "
+                            f"Mamdani!")
                     self.system.imp_method = ImpMethods[imp_meth_name]
-                except Exception:
-                    raise Exception(f"O método de implicação {imp_meth_name} "
-                                    f"não foi implementado!")
-            if l_attr[0] == 'AggMethod':
-                agg_meth_name = l_attr[1][:-1].replace("'", "")
-                try:
+
+                if l_attr[0] == 'AggMethod':
+                    agg_meth_name = l_attr[1][:-1].replace("'", "")
+                    try:
+                        _ = MamdaniAggMethods[agg_meth_name]
+                    except Exception:
+                        raise Exception(
+                            f"O método de agregação {agg_meth_name} "
+                            f"não foi implementado para inferência "
+                            f"Mamdani!")
                     self.system.agg_method = AggMethods[agg_meth_name]
-                except Exception:
-                    raise Exception(f"O método de agregação {agg_meth_name} "
-                                    f"não foi implementado!")
-            if l_attr[0] == 'DefuzzMethod':
-                defuzz_name = l_attr[1][:-1].replace("'", "")
-                try:
+
+                if l_attr[0] == 'DefuzzMethod':
+                    defuzz_name = l_attr[1][:-1].replace("'", "")
+                    try:
+                        _ = MamdaniDefuzzMethods[defuzz_name]
+                    except Exception:
+                        raise Exception(
+                            f"O método de defuzzificação {defuzz_name} "
+                            f"não foi implementado para inferência "
+                            f"Mamdani!")
                     self.system.defuzz_method = DefuzzMethods[defuzz_name]
-                except Exception:
-                    raise Exception(f"O método de defuzzificação {defuzz_name} "
-                                    f"não foi implementado!")
+
+            elif self.system.type == ControllerType.sugeno:
+                if l_attr[0] == 'AndMethod':
+                    and_meth_name = l_attr[1][:-1].replace("'", "")
+                    try:
+                        _ = SugenoAndMethods[and_meth_name]
+                    except Exception:
+                        raise Exception(f"O método AND {and_meth_name} não foi "
+                                        f"implementado para inferência Sugeno!")
+                    self.system.and_method = AndMethods[and_meth_name]
+
+                if l_attr[0] == 'OrMethod':
+                    or_meth_name = l_attr[1][:-1].replace("'", "")
+                    try:
+                        _ = SugenoOrMethods[or_meth_name]
+                    except Exception:
+                        raise Exception(f"O método OR {or_meth_name} não foi "
+                                        f"implementado para inferência Sugeno!")
+                    self.system.or_method = OrMethods[or_meth_name]
+
+                if l_attr[0] == 'ImpMethod':
+                    imp_meth_name = l_attr[1][:-1].replace("'", "")
+                    try:
+                        _ = SugenoImpMethods[imp_meth_name]
+                    except Exception:
+                        raise Exception(
+                            f"O método de implicação {imp_meth_name} "
+                            f"não foi implementado para inferência Sugeno!")
+                    self.system.imp_method = ImpMethods[imp_meth_name]
+
+                if l_attr[0] == 'AggMethod':
+                    agg_meth_name = l_attr[1][:-1].replace("'", "")
+                    try:
+                        _ = SugenoAggMethods[agg_meth_name]
+                    except Exception:
+                        raise Exception(
+                            f"O método de agregação {agg_meth_name} "
+                            f"não foi implementado para inferência Sugeno!")
+                    self.system.agg_method = AggMethods[agg_meth_name]
+
+                if l_attr[0] == 'DefuzzMethod':
+                    defuzz_name = l_attr[1][:-1].replace("'", "")
+                    try:
+                        _ = SugenoDefuzzMethods[defuzz_name]
+                    except Exception:
+                        raise Exception(
+                            f"O método de defuzzificação {defuzz_name} "
+                            f"não foi implementado para inferência Sugeno!")
+                    self.system.defuzz_method = DefuzzMethods[defuzz_name]
 
     def valid_system(self):
         """
@@ -168,9 +246,10 @@ class SystemService:
                         raise Exception(
                             "Um dos items da lista não é uma string!")
 
-                fisVariableService = VariableService(Input())
-                fisVariableService.create_from_fis_block(i_item_list)
-                new_input = fisVariableService.variable
+                fisInputService = InputService()
+                fisInputService.create_from_fis_block(self.system.type,
+                                                      i_item_list)
+                new_input = fisInputService.input
                 self.system.add_input((item_index + 1), new_input)
 
         else:
@@ -211,9 +290,11 @@ class SystemService:
                         raise Exception(
                             "Um dos items da lista não é uma string!")
 
-                fisVariableService = VariableService(Output())
-                fisVariableService.create_from_fis_block(o_item_list)
-                new_output = fisVariableService.variable
+                fisOutputService = OutputService()
+                fisOutputService.create_from_fis_block(self.system.type,
+                                                       o_item_list,
+                                                       self.system.num_inputs)
+                new_output = fisOutputService.output
 
                 self.system.add_output((item_index + 1), new_output)
 
@@ -323,6 +404,11 @@ class SystemService:
             # Se o valor do antecedente for zero pula para o próximo
             if r_output == 0:
                 continue
+
+            # Verificar o operador NOT
+            if int(r_output) < 0:
+                raise Exception(
+                    "O consequente da regra não pode ser negado!")
 
             # Cria um novo antecedente da regra
             new_rule_output = RuleOutput()

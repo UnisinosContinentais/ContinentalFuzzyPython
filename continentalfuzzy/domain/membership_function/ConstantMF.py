@@ -5,7 +5,7 @@ email: rmodena@unisinos.br
 date: July, 2020
 """
 from typing import Optional
-from continentalfuzzy.domain.definition.MamdaniFunctions import MamdaniFunctions
+from continentalfuzzy.domain.definition.Functions import Functions
 from continentalfuzzy.domain.MembershipFunction import MembershipFunction
 
 
@@ -31,7 +31,7 @@ class ConstantMF(MembershipFunction):
 
         """
 
-        super().__init__(mf_name, MamdaniFunctions.constant)
+        super().__init__(mf_name, Functions.constant)
         self.__value = 0
 
         if mf_value is not None:

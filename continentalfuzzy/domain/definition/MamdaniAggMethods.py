@@ -7,8 +7,8 @@ date: July, 2020
 from enum import Enum, auto
 
 
-class AggMethods(Enum):
+class MamdaniAggMethods(Enum):
     """
-    Enum com os métodos de agregação implementados.
+    Enum com os métodos de agregação implementados para o Mamdani.
     """
     max = auto()

@@ -8,12 +8,12 @@ from typing import Optional, List, Dict
 from continentalfuzzy.domain.Rule import Rule
 from continentalfuzzy.domain.variable.Input import Input
 from continentalfuzzy.domain.variable.Output import Output
-from continentalfuzzy.domain.definition.MamdaniAndMethods import AndMethods
-from continentalfuzzy.domain.definition.MamdaniAggMethods import AggMethods
+from continentalfuzzy.domain.definition.AndMethods import AndMethods
+from continentalfuzzy.domain.definition.AggMethods import AggMethods
 from continentalfuzzy.domain.definition.ControllerType import ControllerType
-from continentalfuzzy.domain.definition.MamdaniDefuzzMethods import DefuzzMethods
-from continentalfuzzy.domain.definition.MamdaniImpMethods import ImpMethods
-from continentalfuzzy.domain.definition.MamdaniOrMethods import OrMethods
+from continentalfuzzy.domain.definition.DefuzzMethods import DefuzzMethods
+from continentalfuzzy.domain.definition.ImpMethods import ImpMethods
+from continentalfuzzy.domain.definition.OrMethods import OrMethods
 
 
 class System:

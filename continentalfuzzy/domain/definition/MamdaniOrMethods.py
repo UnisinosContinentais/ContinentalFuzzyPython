@@ -7,8 +7,8 @@ date: July, 2020
 from enum import Enum, auto
 
 
-class OrMethods(Enum):
+class MamdaniOrMethods(Enum):
     """
-    Enum com os métodos OR implementados.
+    Enum com os métodos OR implementados para o Mamdani.
     """
     max = auto()

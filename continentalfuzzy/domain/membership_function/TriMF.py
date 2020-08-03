@@ -6,7 +6,7 @@ date: July, 2020
 """
 from typing import Optional, List
 from continentalfuzzy.domain.MembershipFunction import MembershipFunction
-from continentalfuzzy.domain.definition.MamdaniFunctions import MamdaniFunctions
+from continentalfuzzy.domain.definition.Functions import Functions
 
 
 class TriMF(MembershipFunction):
@@ -31,7 +31,7 @@ class TriMF(MembershipFunction):
 
         """
 
-        super().__init__(mf_name, MamdaniFunctions.trimf)
+        super().__init__(mf_name, Functions.trimf)
         self.__abc = [0, 1, 2]
 
         if mf_abc is not None:

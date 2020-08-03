@@ -7,9 +7,9 @@ date: July, 2020
 from enum import Enum, auto
 
 
-class AndMethods(Enum):
+class SugenoAndMethods(Enum):
     """
-    Enum com os métodos AND implementados.
+    Enum com os métodos AND implementados para o Takagi-Sugeno.
     """
     min = auto()
     prod = auto()

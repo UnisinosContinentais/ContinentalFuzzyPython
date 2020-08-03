@@ -6,17 +6,17 @@ date: July, 2020
 """
 import numpy as np
 from skfuzzy import control as ctrl
-
 from typing import Dict, List
 from continentalfuzzy.domain.Rule import Rule
 from continentalfuzzy.domain.System import System
 from continentalfuzzy.domain.FuzzyMachine import FuzzyMachine
 from continentalfuzzy.domain.variable.Input import Input
 from continentalfuzzy.domain.variable.Output import Output
-from continentalfuzzy.domain.definition.MamdaniAndMethods import AndMethods
-from continentalfuzzy.domain.definition.MamdaniDefuzzMethods import DefuzzMethods
-from continentalfuzzy.domain.definition.MamdaniOrMethods import OrMethods
+from continentalfuzzy.domain.definition.MamdaniAndMethods import MamdaniAndMethods
+from continentalfuzzy.domain.definition.MamdaniDefuzzMethods import MamdaniDefuzzMethods
+from continentalfuzzy.domain.definition.MamdaniOrMethods import MamdaniOrMethods
 from continentalfuzzy.util.FuzzyUtil import FuzzyUtil
+
 
 class FuzzyController:
     """
@@ -62,7 +62,7 @@ class FuzzyController:
                                                                univ=f_universe)
 
     def create_outputs_from_fis(self,
-                                fis_defuzz: DefuzzMethods,
+                                fis_defuzz: MamdaniDefuzzMethods,
                                 fis_outputs: Dict[int, Output]):
         """
         Cria os consequentes do controlador usando instâncias da classe
@@ -98,8 +98,8 @@ class FuzzyController:
                                                                 univ=f_universe)
 
     def create_rules_from_fis(self,
-                              fis_and: AndMethods,
-                              fis_or: OrMethods,
+                              fis_and: MamdaniAndMethods,
+                              fis_or: MamdaniOrMethods,
                               fis_rules: List[Rule]):
         """
         Cria as regras do controlador usando instâncias da classe

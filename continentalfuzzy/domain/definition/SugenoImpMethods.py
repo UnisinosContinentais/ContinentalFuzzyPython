@@ -7,8 +7,8 @@ date: July, 2020
 from enum import Enum, auto
 
 
-class ImpMethods(Enum):
+class SugenoImpMethods(Enum):
     """
-    Enum com os métodos de implicação implementados.
+    Enum com os métodos de implicação implementados para o Takagi-Sugeno.
     """
     prod = auto()

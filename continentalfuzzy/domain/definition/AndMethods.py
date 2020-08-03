@@ -7,9 +7,9 @@ date: July, 2020
 from enum import Enum, auto
 
 
-class SugenoDefuzzMethods(Enum):
+class AndMethods(Enum):
     """
-    Enum com os métodos de defuzzificação implementados para o Takagi-Sugeno.
+    Enum com os métodos AND implementados.
     """
-    wtaver = auto()
-    wtsum = auto()
+    min = auto()
+    prod = auto()

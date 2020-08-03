@@ -7,7 +7,7 @@ date: July, 2020
 from typing import List, Optional
 
 from continentalfuzzy.domain.MembershipFunction import MembershipFunction
-from continentalfuzzy.domain.definition.MamdaniFunctions import MamdaniFunctions
+from continentalfuzzy.domain.definition.Functions import Functions
 
 
 class TrapMF(MembershipFunction):
@@ -32,7 +32,7 @@ class TrapMF(MembershipFunction):
 
         """
 
-        super().__init__(mf_name, MamdaniFunctions.trapmf)
+        super().__init__(mf_name, Functions.trapmf)
         self.__abcd = [0, 1, 2, 4]
 
         if mf_abcd is not None:

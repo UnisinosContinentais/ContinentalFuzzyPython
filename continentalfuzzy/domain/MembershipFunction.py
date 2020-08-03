@@ -5,7 +5,7 @@ email: rmodena@unisinos.br
 date: July, 2020
 """
 from typing import Optional
-from continentalfuzzy.domain.definition.MamdaniFunctions import MamdaniFunctions
+from continentalfuzzy.domain.definition.Functions import Functions
 
 
 class MembershipFunction:
@@ -15,7 +15,7 @@ class MembershipFunction:
 
     def __init__(self,
                  mf_name: Optional[str] = None,
-                 mf_function: Optional[MamdaniFunctions] = None):
+                 mf_function: Optional[Functions] = None):
         """
         Inicializador da classe FISMembershipFunc
 
@@ -66,20 +66,20 @@ class MembershipFunction:
         self.__name = mf_name
 
     @property
-    def function(self) -> MamdaniFunctions:
+    def function(self) -> Functions:
         """
         Nome da função de pertinência.
 
         Retorna
         -------
         str
-            Retorna uma instância da classe FISFunctions com o nome da função
-            de pertinência.
+            Retorna uma instância da classe MembershipFunction com o nome da
+            função de pertinência.
         """
         return self.__function
 
     @function.setter
-    def function(self, mf_function: MamdaniFunctions):
+    def function(self, mf_function: Functions):
         """
         Altera o nome da função de pertinência.
 
@@ -89,8 +89,8 @@ class MembershipFunction:
             FISFunctions contendo o nome da função de pertinência.
         """
 
-        if not isinstance(mf_function, MamdaniFunctions):
+        if not isinstance(mf_function, Functions):
             raise Exception(f"Função de pertinência {mf_function} não é uma "
-                            f"instância da classe FISFunctions!")
+                            f"instância da classe MembershipFunction!")
 
         self.__function = mf_function

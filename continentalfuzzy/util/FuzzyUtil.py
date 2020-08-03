@@ -8,11 +8,11 @@ import numpy as np
 from typing import Union, List, Dict
 import skfuzzy as fuzz
 from continentalfuzzy.domain.MembershipFunction import MembershipFunction
+from continentalfuzzy.domain.definition.Functions import Functions
 from continentalfuzzy.domain.membership_function.TrapMF import TrapMF
 from continentalfuzzy.domain.membership_function.TriMF import TriMF
 from continentalfuzzy.domain.membership_function.GaussMF import GaussMF
 from continentalfuzzy.domain.membership_function.Gauss2MF import Gauss2MF
-from continentalfuzzy.domain.definition.MamdaniFunctions import MamdaniFunctions
 
 
 class FuzzyUtil:
@@ -24,22 +24,22 @@ class FuzzyUtil:
         universe_set.add(u_range[0])
         universe_set.add(u_range[1])
         for f_mf in mfs.values():
-            if f_mf.function == MamdaniFunctions.trimf:
+            if f_mf.function == Functions.trimf:
                 for value in cls.get_trimf_values(f_mf):
                     if (value >= u_range[0]) and (value <= u_range[1]):
                         universe_set.add(value)
 
-            elif f_mf.function == MamdaniFunctions.trapmf:
+            elif f_mf.function == Functions.trapmf:
                 for value in cls.get_trapmf_values(f_mf):
                     if (value >= u_range[0]) and (value <= u_range[1]):
                         universe_set.add(value)
 
-            elif f_mf.function == MamdaniFunctions.gaussmf:
+            elif f_mf.function == Functions.gaussmf:
                 for value in cls.get_gaussmf_values(f_mf):
                     if (value >= u_range[0]) and (value <= u_range[1]):
                         universe_set.add(value)
 
-            elif f_mf.function == MamdaniFunctions.gauss2mf:
+            elif f_mf.function == Functions.gauss2mf:
                 for value in cls.get_gauss2mf_values(f_mf):
                     if (value >= u_range[0]) and (value <= u_range[1]):
                         universe_set.add(value)
@@ -109,19 +109,19 @@ class FuzzyUtil:
             raise Exception("O parâmetro não é um numpy array!")
 
         # Se a curva de pertinência for triangular.
-        if mf.function == MamdaniFunctions.trimf:
+        if mf.function == Functions.trimf:
             f_function = fuzz.trimf(x=univ, abc=mf.abc)
 
         # Se a curva de pertinência for trapezoidal.
-        elif mf.function == MamdaniFunctions.trapmf:
+        elif mf.function == Functions.trapmf:
             f_function = fuzz.trapmf(x=univ, abcd=mf.abcd)
 
         # Se a curva de pertinência for gaussiana.
-        elif mf.function == MamdaniFunctions.gaussmf:
+        elif mf.function == Functions.gaussmf:
             f_function = fuzz.gaussmf(x=univ, sigma=mf.sigma, mean=mf.mean)
 
         # Se a curva de pertinência for de duas gaussianas combinadas
-        elif mf.function == MamdaniFunctions.gauss2mf:
+        elif mf.function == Functions.gauss2mf:
             f_function = fuzz.gauss2mf(x=univ,
                                        sigma1=mf.sigma1,
                                        mean1=mf.mean1,

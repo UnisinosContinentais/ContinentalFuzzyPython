@@ -7,8 +7,8 @@ date: July, 2020
 from enum import Enum, auto
 
 
-class AndMethods(Enum):
+class MamdaniAndMethods(Enum):
     """
-    Enum com os métodos AND implementados.
+    Enum com os métodos AND implementados para o Mamdani.
     """
     min = auto()

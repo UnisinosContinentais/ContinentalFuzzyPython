@@ -7,9 +7,9 @@ date: July, 2020
 from enum import Enum, auto
 
 
-class SugenoDefuzzMethods(Enum):
+class AggMethods(Enum):
     """
-    Enum com os métodos de defuzzificação implementados para o Takagi-Sugeno.
+    Enum com os métodos de agregação implementados.
     """
-    wtaver = auto()
-    wtsum = auto()
+    max = auto()
+    sum = auto()

@@ -6,7 +6,7 @@ date: July, 2020
 """
 from typing import Optional
 from continentalfuzzy.domain.MembershipFunction import MembershipFunction
-from continentalfuzzy.domain.definition.MamdaniFunctions import MamdaniFunctions
+from continentalfuzzy.domain.definition.Functions import Functions
 
 
 class GaussMF(MembershipFunction):
@@ -34,7 +34,7 @@ class GaussMF(MembershipFunction):
             Número float contendo a média.
         """
 
-        super().__init__(mf_name, MamdaniFunctions.gaussmf)
+        super().__init__(mf_name, Functions.gaussmf)
         self.__sigma = None
         self.__mean = None
 

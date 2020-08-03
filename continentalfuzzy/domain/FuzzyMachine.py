@@ -12,9 +12,9 @@ from skfuzzy.control.controlsystem import ControlSystem
 from skfuzzy.control.controlsystem import ControlSystemSimulation
 from typing import Dict, List, Optional
 from continentalfuzzy.domain.Rule import Rule
-from continentalfuzzy.domain.definition.MamdaniAndMethods import AndMethods
+from continentalfuzzy.domain.definition.MamdaniAndMethods import MamdaniAndMethods
 from continentalfuzzy.domain.definition.Connections import Connections
-from continentalfuzzy.domain.definition.MamdaniOrMethods import OrMethods
+from continentalfuzzy.domain.definition.MamdaniOrMethods import MamdaniOrMethods
 
 
 class FuzzyMachine:
@@ -23,10 +23,10 @@ class FuzzyMachine:
     """
 
     # Dicionário com os métodos AND implementadas
-    DICT_AND_METHODS = {AndMethods.min: np.min}
+    DICT_AND_METHODS = {MamdaniAndMethods.min: np.min}
 
     # Dicionário com os métodos OR implementadas
-    DICT_OR_METHODS = {OrMethods.max: np.max}
+    DICT_OR_METHODS = {MamdaniOrMethods.max: np.max}
 
     # Dicionário com os conectores implementados
     DICT_CONNECTORS = {Connections.AND: '&', Connections.OR: '|'}
