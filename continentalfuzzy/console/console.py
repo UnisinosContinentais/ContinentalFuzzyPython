@@ -58,9 +58,9 @@ class TestFuzzy:
         fuzzyControlApplicationService = FuzzyControlApplicationService()
         result = fuzzyControlApplicationService.process_fuzzy_control(
             fuzzyControlCommandInput)
-        print(result.messages)
-        print(result.status)
-        print(result.result)
+        # print(result.messages)
+        # print(result.status)
+        print(result)
 
 
 if __name__ == '__main__':

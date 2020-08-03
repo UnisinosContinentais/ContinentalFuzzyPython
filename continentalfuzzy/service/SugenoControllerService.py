@@ -8,35 +8,35 @@ import numpy as np
 from typing import Optional
 from continentalfuzzy.domain.Rule import Rule
 from continentalfuzzy.domain.SugenoController import SugenoController
-from continentalfuzzy.domain.SugenoRule import SugenoRule
+from continentalfuzzy.domain.sugeno.SugenoRule import SugenoRule
 from continentalfuzzy.domain.System import System
 from continentalfuzzy.domain.definition.Functions import Functions
 from continentalfuzzy.domain.definition.AndMethods import AndMethods
 from continentalfuzzy.domain.definition.Connections import Connections
 from continentalfuzzy.domain.definition.DefuzzMethods import DefuzzMethods
 from continentalfuzzy.domain.definition.OrMethods import OrMethods
-from continentalfuzzy.domain.sugeno_rule_variable.SugenoRuleInput import \
+from continentalfuzzy.domain.sugeno.rule_variable.SugenoRuleInput import \
     SugenoRuleInput
-from continentalfuzzy.domain.sugeno_rule_variable.SugenoRuleOutput import \
+from continentalfuzzy.domain.sugeno.rule_variable.SugenoRuleOutput import \
     SugenoRuleOutput
-from continentalfuzzy.domain.sugeno_variable.SugenoInput import SugenoInput
-from continentalfuzzy.domain.sugeno_variable.SugenoOutput import SugenoOutput
-from continentalfuzzy.service.sugeno_membership_functions.GaussMembershipFunction import \
+from continentalfuzzy.domain.sugeno.variable.SugenoInput import SugenoInput
+from continentalfuzzy.domain.sugeno.variable.SugenoOutput import SugenoOutput
+from continentalfuzzy.service.sugeno.membership_functions.GaussMembershipFunction import \
     GaussMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.GaussTwoMembershipFunction import \
+from continentalfuzzy.service.sugeno.membership_functions.GaussTwoMembershipFunction import \
     GaussTwoMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.TrapezoidalMembershipFunction import \
+from continentalfuzzy.service.sugeno.membership_functions.TrapezoidalMembershipFunction import \
     TrapezoidalMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.TriangularMembershipFuntion import \
+from continentalfuzzy.service.sugeno.membership_functions.TriangularMembershipFuntion import \
     TriangularMembershipFunction
-from continentalfuzzy.service.sugeno_membership_functions.LinearMembershipFunction import \
+from continentalfuzzy.service.sugeno.membership_functions.LinearMembershipFunction import \
     LinearMembershipFunction
-from continentalfuzzy.service.sugeno_operators.MaxOrMethod import MaxOrMethod
-from continentalfuzzy.service.sugeno_operators.MinAndMethod import MinAndMethod
-from continentalfuzzy.service.sugeno_operators.NotMethod import NotMethod
-from continentalfuzzy.service.sugeno_operators.ProborOrMethod import \
+from continentalfuzzy.service.sugeno.operators.MaxOrMethod import MaxOrMethod
+from continentalfuzzy.service.sugeno.operators.MinAndMethod import MinAndMethod
+from continentalfuzzy.service.sugeno.operators.NotMethod import NotMethod
+from continentalfuzzy.service.sugeno.operators.ProborOrMethod import \
     ProborOrMethod
-from continentalfuzzy.service.sugeno_operators.ProdAndMethod import \
+from continentalfuzzy.service.sugeno.operators.ProdAndMethod import \
     ProdAndMethod
 
 

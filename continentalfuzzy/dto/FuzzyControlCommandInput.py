@@ -10,7 +10,7 @@ from typing import Dict
 class FuzzyControlCommandInput:
     def __init__(self):
         self.__filename = None
-        self.__fuzzy_inputs = None
+        self.__fuzzy_inputs = dict()
         self.__fuzzy_output = None
 
     @property
@@ -21,6 +21,9 @@ class FuzzyControlCommandInput:
     def filename(self, p_filename: str):
         self.__filename = p_filename
 
+    def set_filename(self, p_filename: str):
+        self.__filename = p_filename
+
     @property
     def fuzzy_inputs(self) -> Dict[str, float]:
         return self.__fuzzy_inputs
@@ -29,10 +32,16 @@ class FuzzyControlCommandInput:
     def fuzzy_inputs(self, p_fuzzy_inputs: Dict[str, float]):
         self.__fuzzy_inputs = p_fuzzy_inputs
 
+    def add_fuzzy_inputs(self, p_name, p_value):
+        self.__fuzzy_inputs[p_name] = p_value
+
     @property
     def fuzzy_output(self) -> str:
         return self.__fuzzy_output
 
     @fuzzy_output.setter
     def fuzzy_output(self, p_fuzzy_output: str):
+        self.__fuzzy_output = p_fuzzy_output
+
+    def set_fuzzy_output(self, p_fuzzy_output: str):
         self.__fuzzy_output = p_fuzzy_output

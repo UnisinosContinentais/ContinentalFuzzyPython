@@ -6,9 +6,9 @@ date: July, 2020
 """
 from typing import Dict, List, Optional
 from continentalfuzzy.domain.System import System
-from continentalfuzzy.domain.sugeno_variable.SugenoInput import SugenoInput
-from continentalfuzzy.domain.sugeno_variable.SugenoOutput import SugenoOutput
-from continentalfuzzy.domain.SugenoRule import SugenoRule
+from continentalfuzzy.domain.sugeno.variable.SugenoInput import SugenoInput
+from continentalfuzzy.domain.sugeno.variable.SugenoOutput import SugenoOutput
+from continentalfuzzy.domain.sugeno.SugenoRule import SugenoRule
 
 
 class SugenoController:

@@ -5,7 +5,7 @@ email: rmodena@unisinos.br
 date: July, 2020
 """
 from continentalfuzzy.domain.definition.ControllerType import ControllerType
-from continentalfuzzy.service.FuzzyControllerService import FuzzyController
+from continentalfuzzy.service.MamdaniControllerService import MamdaniControllerService
 from continentalfuzzy.dto.FuzzyControlCommandInput import FuzzyControlCommandInput
 from continentalfuzzy.dto.FuzzyControlCommandOutput import FuzzyControlCommandOutput
 from continentalfuzzy.dto.ProcessResult import ProcessResult
@@ -28,10 +28,10 @@ class FuzzyControlApplicationService:
                 fuzzyControlCommandInput.filename)
 
             if fisSystem.type == ControllerType.mamdani:
-                fuzzyController = FuzzyController()
-                fuzzyController.create_from_fis_system(fisSystem)
+                mamdaniController = MamdaniControllerService()
+                mamdaniController.create_from_fis_system(fisSystem)
 
-                fuzzy_result = fuzzyController.fuzzy_calc_single_value(
+                fuzzy_result = mamdaniController.fuzzy_calc_single_value(
                     fuzzyControlCommandInput.fuzzy_inputs,
                     fuzzyControlCommandInput.fuzzy_output)
             elif fisSystem.type == ControllerType.sugeno:
@@ -49,4 +49,4 @@ class FuzzyControlApplicationService:
             result.add_message("Não foi possível executar o processo do fuzzy!")
             result.add_message(ex.args[0])
 
-        return result
+        return result.result

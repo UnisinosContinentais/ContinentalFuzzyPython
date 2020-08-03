@@ -7,8 +7,8 @@ date: July, 2020
 from typing import List
 from continentalfuzzy.domain.definition.ControllerType import ControllerType
 from continentalfuzzy.domain.definition.Functions import Functions
-from continentalfuzzy.domain.definition.MamdaniFunctions import MamdaniFunctions
-from continentalfuzzy.domain.definition.SugenoOutputFunctions import \
+from continentalfuzzy.domain.definition.mamdani.MamdaniFunctions import MamdaniFunctions
+from continentalfuzzy.domain.definition.sugeno.SugenoOutputFunctions import \
     SugenoOutputFunctions
 from continentalfuzzy.domain.variable.Output import Output
 from continentalfuzzy.service.MembershipFunctionService import \

@@ -16,6 +16,10 @@ class FuzzyControlCommandOutput(AbstractDtoResult):
     def result(self) -> float:
         return self.__result
 
+
+    def get_result(self) -> float:
+        return float(self.__result)
+
     @result.setter
     def result(self, p_result: float):
         self.__result = p_result
