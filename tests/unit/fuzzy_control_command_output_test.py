@@ -33,3 +33,12 @@ class FuzzyControlCommandOutputTest(unittest.TestCase):
         self.assertEqual(my_result,
                          my_command_output.result,
                          msg='Test result')
+
+    def test_get_result(self):
+        my_command_output = FuzzyControlCommandOutput()
+        my_result = 10.7
+        my_command_output.result = my_result
+
+        self.assertEqual(my_result,
+                         my_command_output.get_result(),
+                         msg='Test get_result')

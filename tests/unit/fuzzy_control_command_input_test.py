@@ -26,7 +26,16 @@ class FuzzyControlCommandInputTest(unittest.TestCase):
                          my_command_input.filename,
                          msg='Test filename')
 
-    def test_property_inputs(self):
+    def test_set_filename(self):
+        my_command_input = FuzzyControlCommandInput()
+        my_filename = 'teste.fis'
+        my_command_input.set_filename(my_filename)
+
+        self.assertEqual(my_filename,
+                         my_command_input.filename,
+                         msg='Test set_filename')
+
+    def test_property_fuzzy_inputs(self):
         my_command_input = FuzzyControlCommandInput()
         my_inputs = {'Distance': 1,
                      'Slope': 2,
@@ -35,7 +44,16 @@ class FuzzyControlCommandInputTest(unittest.TestCase):
 
         self.assertEqual(my_inputs,
                          my_command_input.fuzzy_inputs,
-                         msg='Test inputs')
+                         msg='Test fuzzy_inputs')
+
+    def test_add_fuzzy_inputs(self):
+        my_command_input = FuzzyControlCommandInput()
+        my_inputs = {'Distance': 1}
+        my_command_input.add_fuzzy_inputs('Distance', 1)
+
+        self.assertEqual(my_inputs,
+                         my_command_input.fuzzy_inputs,
+                         msg='Test add_fuzzy_inputs')
 
     def test_property_outputs(self):
         my_command_input = FuzzyControlCommandInput()
@@ -45,3 +63,12 @@ class FuzzyControlCommandInputTest(unittest.TestCase):
         self.assertEqual(my_outputs,
                          my_command_input.fuzzy_output,
                          msg='Test outputs')
+
+    def test_set_fuzzy_output(self):
+        my_command_input = FuzzyControlCommandInput()
+        my_output = 'output1'
+        my_command_input.set_fuzzy_output(my_output)
+
+        self.assertEqual(my_output,
+                         my_command_input.fuzzy_output,
+                         msg='Test set_fuzzy_output')
