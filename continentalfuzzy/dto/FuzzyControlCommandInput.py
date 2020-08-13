@@ -12,6 +12,7 @@ class FuzzyControlCommandInput:
         self.__filename = None
         self.__fuzzy_inputs = dict()
         self.__fuzzy_output = None
+        self.__use_dict_facies_association = False
 
     @property
     def filename(self) -> str:
@@ -45,3 +46,14 @@ class FuzzyControlCommandInput:
 
     def set_fuzzy_output(self, p_fuzzy_output: str):
         self.__fuzzy_output = p_fuzzy_output
+
+    @property
+    def use_dict_facies_association(self) -> bool:
+        return self.__use_dict_facies_association
+
+    @use_dict_facies_association.setter
+    def use_dict_facies_association(self, p_use_dict_facies_association: bool):
+        self.__use_dict_facies_association = p_use_dict_facies_association
+
+    def set_use_dict_facies_association(self, p_use_dict_facies_association: bool):
+        self.__use_dict_facies_association = p_use_dict_facies_association

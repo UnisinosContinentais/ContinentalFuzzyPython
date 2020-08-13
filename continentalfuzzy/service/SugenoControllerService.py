@@ -196,6 +196,8 @@ class SugenoControllerService:
         if len(v_inputs) != len(self.sugeno_controller.inputs):
             raise Exception("Número de inputs inválido!!")
 
+        result = -1
+
         if self.sugeno_controller.fis_system.defuzz_method == DefuzzMethods.wtaver:
             w_array = self.calc_rule_firing(v_inputs)
             z_array = self.calc_rule_output_level(v_inputs)
@@ -204,8 +206,6 @@ class SugenoControllerService:
             w_array_weights = w_array * weights
 
             result = np.sum(w_array_weights * z_array) / sum(w_array_weights)
-
-            return result
 
         elif self.sugeno_controller.fis_system.defuzz_method == DefuzzMethods.wtsum:
             w_array = self.calc_rule_firing(v_inputs)
@@ -216,4 +216,7 @@ class SugenoControllerService:
 
             result = np.sum(w_array_weights * z_array)
 
+        if self.sugeno_controller.fis_system.use_dict_facies_association:
+            return self.sugeno_controller.fis_system.facies_association.get(int(round(result, 0)))
+        else:
             return result

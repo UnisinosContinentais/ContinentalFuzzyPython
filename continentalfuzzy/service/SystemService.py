@@ -9,6 +9,9 @@ from typing import List
 from continentalfuzzy.domain.definition.AggMethods import AggMethods
 from continentalfuzzy.domain.definition.AndMethods import AndMethods
 from continentalfuzzy.domain.definition.DefuzzMethods import DefuzzMethods
+from continentalfuzzy.domain.definition.FaciesAssociation import \
+    FaciesAssociation
+from continentalfuzzy.domain.definition.Functions import Functions
 from continentalfuzzy.domain.definition.ImpMethods import ImpMethods
 from continentalfuzzy.domain.definition.OrMethods import OrMethods
 from continentalfuzzy.domain.definition.sugeno.SugenoAggMethods import SugenoAggMethods
@@ -518,10 +521,38 @@ class SystemService:
             raise Exception(f"Quantidade de regras é diferente do número "
                             "de regras informado no bloco System!")
 
+    def create_dict_facies_association(self,
+                                       p_use_dict: bool):
+        self.system.use_dict_facies_association = p_use_dict
+
+        if p_use_dict:
+            if self.system.type == ControllerType.sugeno:
+                for mf in self.system.outputs.get(1).mfs.values():
+                    if mf.function != Functions.constant:
+                        raise Exception("O dicionário de fácies somente foi "
+                                        "implementado para a função de "
+                                        "pertinência Constante!")
+                    try:
+                        _ = FaciesAssociation[mf.name]
+                    except Exception:
+                        raise Exception(f"A Associação de fácies "
+                                        f"{mf.value} não foi cadastrada!")
+
+                    self.system.add_facies_association(
+                        int(mf.value),
+                        FaciesAssociation[mf.name].value)
+            else:
+                raise Exception("O dicionário de fácies somente foi "
+                                "implementado para o tipo de  inferência "
+                                "Sugeno!")
+
+
     def valid_import(self):
         """
         Verifica se a importação preencheu todas as informações.
         """
+        if self.system.use_dict_facies_association is None:
+            raise Exception(f"O uso de associação de fácies não foi informado!")
         if self.system.filename is None:
             raise Exception(f"O caminho do arquivo não foi informado!")
         if len(self.system.inputs) != self.system.num_inputs:
@@ -534,7 +565,7 @@ class SystemService:
             raise Exception(f"Não foi importada a quantidade correta de "
                             f"regras!")
 
-    def import_file(self, filename: str):
+    def import_file(self, filename: str, use_dict_facies_association = False):
         """
         Importa um arquivo .fis e cria todos os componentes de um sistema fuzzy.
 
@@ -624,6 +655,9 @@ class SystemService:
 
         # Criar as regras
         self.create_rules_from_list(rules_list)
+
+        # Cria dicionário de fácies
+        self.create_dict_facies_association(use_dict_facies_association)
 
         # Valida a importação
         self.valid_import()

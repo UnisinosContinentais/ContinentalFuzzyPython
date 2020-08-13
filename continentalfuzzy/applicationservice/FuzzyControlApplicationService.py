@@ -13,11 +13,10 @@ from continentalfuzzy.service.SugenoControllerService import \
     SugenoControllerService
 from continentalfuzzy.service.SystemService import SystemService
 
+
 class FuzzyControlApplicationService:
     @classmethod
-    def process_fuzzy_control(cls,
-                              fuzzyControlCommandInput
-                              : FuzzyControlCommandInput):
+    def process_fuzzy_control(cls, fuzzyControlCommandInput: FuzzyControlCommandInput):
 
         result = FuzzyControlCommandOutput()
         result.status = ProcessResult.RESULT_ERROR
@@ -25,7 +24,8 @@ class FuzzyControlApplicationService:
         try:
             fisSystemService = SystemService()
             fisSystem = fisSystemService.import_file(
-                fuzzyControlCommandInput.filename)
+                fuzzyControlCommandInput.filename,
+                fuzzyControlCommandInput.use_dict_facies_association)
 
             if fisSystem.type == ControllerType.mamdani:
                 mamdaniController = MamdaniControllerService()

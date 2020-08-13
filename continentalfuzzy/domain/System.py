@@ -42,7 +42,9 @@ class System:
                  sys_defuzz_method: Optional[DefuzzMethods] = None,
                  sys_inputs: Optional[Dict[int, Input]] = None,
                  sys_outputs: Optional[Dict[int, Output]] = None,
-                 sys_rules: Optional[List[Rule]] = None):
+                 sys_rules: Optional[List[Rule]] = None,
+                 sys_facies_association: Optional[Dict[int, int]] = None,
+                 sys_use_dict_facies_association: Optional[bool] = None):
         """
         Inicializador da classe System
 
@@ -110,6 +112,8 @@ class System:
         self.__inputs = dict()
         self.__outputs = dict()
         self.__rules = list()
+        self.__facies_association = dict()
+        self.__use_dict_facies_association = None
 
         if sys_name is not None:
             self.name = sys_name
@@ -158,6 +162,12 @@ class System:
 
         if sys_rules is not None:
             self.rules = sys_rules
+
+        if sys_facies_association:
+            self.__facies_association = sys_facies_association
+
+        if sys_use_dict_facies_association:
+            self.__use_dict_facies_association = sys_use_dict_facies_association
 
     @property
     def name(self) -> str:
@@ -747,3 +757,49 @@ class System:
                 f"O valor não é uma instância da classe Rule!")
 
         self.__rules.append(sys_rule)
+
+    @property
+    def facies_association(self) -> Dict[int, int]:
+        return self.__facies_association
+
+    @facies_association.setter
+    def facies_association(self, sys_facies_association: Dict[int, int]):
+        # Verifica se o dicionário possui os tipos corretos
+        for k_output, k_value in sys_facies_association.items():
+            if not isinstance(k_output, int):
+                raise Exception(
+                    "A chave não é uma número inteiro!")
+            if not isinstance(k_value, int):
+                raise Exception(
+                    "O valor não é uma número inteiro!")
+
+        self.__facies_association = sys_facies_association
+
+    def add_facies_association(self, sys_num: int, sys_value: Output):
+        # Verifica se a associação de fácies já foi cadastrada
+        if self.__facies_association.get(sys_num) is not None:
+            raise Exception(f"Associação de Fácies {sys_num} já cadastrada!")
+
+        # Verifica se a chave do dicionário é um inteiro
+        if not isinstance(sys_num, int):
+            raise Exception(
+                "A chave não é uma número inteiro!")
+
+        # Verifica se o valor do dicionário é um inteiro
+        if not isinstance(sys_value, int):
+            raise Exception(
+                "O valor não é uma número inteiro!")
+
+        self.__facies_association[sys_num] = sys_value
+
+    @property
+    def use_dict_facies_association(self) -> bool:
+        return self.__use_dict_facies_association
+
+    @use_dict_facies_association.setter
+    def use_dict_facies_association(self,
+                                    sys_use_dict_facies_association: bool):
+        if not isinstance(sys_use_dict_facies_association, bool):
+            raise Exception(f"O nome não é um booleano!")
+
+        self.__use_dict_facies_association = sys_use_dict_facies_association
