@@ -49,6 +49,10 @@ class SystemTest(unittest.TestCase):
         self.assertEqual(dict(), my_system.inputs, msg='Test inputs')
         self.assertEqual(dict(), my_system.outputs, msg='Test outputs')
         self.assertEqual(list(), my_system.rules, msg='Test rules')
+        self.assertEqual(dict(), my_system.facies_association,
+                         msg='Test facies_association_de_para')
+        self.assertIsNone(my_system.use_dict_facies_association,
+                          msg='Test use_dict_facies_association')
 
     def test_create_system_2(self):
         # MF 1
@@ -102,6 +106,8 @@ class SystemTest(unittest.TestCase):
         my_imp_method = ImpMethods.min
         my_agg_method = AggMethods.max
         my_defuzz_method = DefuzzMethods.centroid
+        my_use_dict_facies_association = True
+        my_facies_association = {1: 2, 3: 4}
         my_input = {1: Input(my_i_name,
                              my_i_range,
                              my_i_num_mfs,
@@ -129,7 +135,9 @@ class SystemTest(unittest.TestCase):
                            my_defuzz_method,
                            my_input,
                            my_output,
-                           my_rule)
+                           my_rule,
+                           my_facies_association,
+                           my_use_dict_facies_association)
 
         self.assertEqual(my_name, my_system.name,
                          msg='Test name')
@@ -156,6 +164,12 @@ class SystemTest(unittest.TestCase):
         self.assertEqual(my_input, my_system.inputs, msg='Test inputs')
         self.assertEqual(my_output, my_system.outputs, msg='Test outputs')
         self.assertEqual(my_rule, my_system.rules, msg='Test rules')
+        self.assertEqual(my_use_dict_facies_association,
+                         my_system.use_dict_facies_association,
+                         msg='Test use_dict_facies_association')
+        self.assertEqual(my_facies_association,
+                         my_system.facies_association,
+                         msg='Test facies_association')
 
     def test_property_name(self):
         my_system = System()
@@ -1930,3 +1944,96 @@ class SystemTest(unittest.TestCase):
 
         self.assertEqual(my_exception, context.exception.args[0],
                          msg='Test add_rule exception 3')
+
+    def test_property_use_dict_facies_association(self):
+        my_system = System()
+        my_use_dict_facies_association = True
+        my_system.use_dict_facies_association = my_use_dict_facies_association
+
+        self.assertEqual(my_use_dict_facies_association,
+                         my_system.use_dict_facies_association,
+                         msg='Test use_dict_facies_association')
+
+    def test_property_use_dict_facies_association_exception(self):
+        my_system = System()
+        my_use_dict_facies_association = [10, 12]
+        my_exception = "O nome não é um booleano!"
+        with self.assertRaises(Exception) as context:
+            my_system.use_dict_facies_association = my_use_dict_facies_association
+
+        self.assertEqual(
+            my_exception, context.exception.args[0],
+            msg='Test property my_use_dict_facies_association exception')
+
+    def test_property_facies_association(self):
+        my_facies_association = {1: 2, 3: 4, 5: 6}
+
+        my_system = System()
+        my_system.facies_association = my_facies_association
+
+        self.assertEqual(my_facies_association,
+                         my_system.facies_association,
+                         msg='Test my_facies_association')
+
+    def test_property_facies_association_exception_1(self):
+        my_facies_association = {'1': 2}
+
+        my_system = System()
+
+        my_exception = "A chave não é uma número inteiro!"
+        with self.assertRaises(Exception) as context:
+            my_system.facies_association = my_facies_association
+
+        self.assertEqual(my_exception, context.exception.args[0],
+                         msg='Test property my_facies_association exception 1')
+
+    def test_property_facies_association_exception_2(self):
+        my_facies_association = {1: '2'}
+
+        my_system = System()
+
+        my_exception = "O valor não é uma número inteiro!"
+        with self.assertRaises(Exception) as context:
+            my_system.facies_association = my_facies_association
+
+        self.assertEqual(my_exception, context.exception.args[0],
+                         msg='Test property my_facies_association exception 2')
+
+    def test_add_facies_association(self):
+        my_system = System()
+        my_system.add_facies_association(1, 2)
+
+        self.assertEqual({1: 2},
+                         my_system.facies_association,
+                         msg='Test add_facies_association')
+
+    def test_add_facies_association_exception_1(self):
+        my_system = System()
+        my_system.add_facies_association(1, 2)
+
+        my_exception = "Associação de Fácies 1 já cadastrada!"
+        with self.assertRaises(Exception) as context:
+            my_system.add_facies_association(1, 2)
+
+        self.assertEqual(my_exception, context.exception.args[0],
+                         msg='Test add_facies_association exception 1')
+
+    def test_add_facies_association_exception_2(self):
+        my_system = System()
+
+        my_exception = "A chave não é uma número inteiro!"
+        with self.assertRaises(Exception) as context:
+            my_system.add_facies_association('1', 2)
+
+        self.assertEqual(my_exception, context.exception.args[0],
+                         msg='Test add_facies_association exception 2')
+
+    def test_add_facies_association_exception_3(self):
+        my_system = System()
+
+        my_exception = "O valor não é uma número inteiro!"
+        with self.assertRaises(Exception) as context:
+            my_system.add_facies_association(1, '2')
+
+        self.assertEqual(my_exception, context.exception.args[0],
+                         msg='Test add_facies_association exception 3')

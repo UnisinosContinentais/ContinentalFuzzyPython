@@ -670,6 +670,21 @@ class SugenoControllerServiceTest(unittest.TestCase):
             round(my_service.sugeno_calc_single_value(my_inputs), 2),
             msg='Test sugeno_calc_single_value 2')
 
+    def test_sugeno_calc_single_value_3(self):
+        sugeno_filename = "tests/test_data/Ramp_Arid.fis"
+        fisSystemService = SystemService()
+        my_fuzzy = fisSystemService.import_file(sugeno_filename, True)
+
+        my_service = SugenoControllerService()
+        my_service.create_from_fis_system(my_fuzzy)
+
+        my_inputs = {'Depth': 120, 'EnergyDissipation': 0.7}
+
+        self.assertEqual(
+            7,
+            round(my_service.sugeno_calc_single_value(my_inputs), 2),
+            msg='Test sugeno_calc_single_value 3')
+
     def test_sugeno_calc_single_value_exception_1(self):
         sugeno_filename = "tests/test_data/Tip_fuzzylite_2.fis"
         fisSystemService = SystemService()

@@ -72,3 +72,21 @@ class FuzzyControlCommandInputTest(unittest.TestCase):
         self.assertEqual(my_output,
                          my_command_input.fuzzy_output,
                          msg='Test set_fuzzy_output')
+
+    def test_property_use_dict_facies_association(self):
+        my_command_input = FuzzyControlCommandInput()
+        my_use_dict_facies_association = True
+        my_command_input.use_dict_facies_association = my_use_dict_facies_association
+
+        self.assertEqual(my_use_dict_facies_association,
+                         my_command_input.use_dict_facies_association,
+                         msg='Test use_dict_facies_association')
+
+    def test_set_use_dict_facies_association(self):
+        my_command_input = FuzzyControlCommandInput()
+        my_use_dict_facies_association = True
+        my_command_input.set_use_dict_facies_association(my_use_dict_facies_association)
+
+        self.assertEqual(my_use_dict_facies_association,
+                         my_command_input.use_dict_facies_association,
+                         msg='Test set_use_dict_facies_association')

@@ -743,6 +743,8 @@ class SystemTest(unittest.TestCase):
 
         systemService.create_rules_from_list(my_list)
 
+        systemService.create_dict_facies_association(False)
+
         my_exception = "O caminho do arquivo não foi informado!"
         with self.assertRaises(Exception) as context:
             systemService.valid_import()
@@ -774,6 +776,8 @@ class SystemTest(unittest.TestCase):
                        "MF4='Basin':'gaussmf',[0.4247 4]"]]
 
         systemService.create_outputs_from_list(my_outputs)
+
+        systemService.create_dict_facies_association(False)
 
         my_exception = "Não foi importada a quantidade correta de antecedentes!"
         with self.assertRaises(Exception) as context:
@@ -812,6 +816,8 @@ class SystemTest(unittest.TestCase):
                       "MF3='Deep':'gauss2mf',[77.9 260 28.3 3042]"]]
 
         systemService.create_inputs_from_list(my_inputs)
+
+        systemService.create_dict_facies_association(False)
 
         my_exception = "Não foi importada a quantidade correta de consequentes!"
         with self.assertRaises(Exception) as context:
@@ -861,7 +867,57 @@ class SystemTest(unittest.TestCase):
 
         systemService.create_outputs_from_list(my_outputs)
 
+        systemService.create_dict_facies_association(False)
+
         my_exception = "Não foi importada a quantidade correta de regras!"
+        with self.assertRaises(Exception) as context:
+            systemService.valid_import()
+        self.assertEqual(my_exception, context.exception.args[0])
+
+    def test_valid_system_exception_5(self):
+        my_sys_list = ["Name='EnvironmentMamdani'",
+                       "Type='mamdani'",
+                       'Version=2.0',
+                       'NumInputs=3',
+                       'NumOutputs=1',
+                       'NumRules=4',
+                       "AndMethod='min'",
+                       "OrMethod='max'",
+                       "ImpMethod='min'",
+                       "AggMethod='max'",
+                       "DefuzzMethod='centroid'"]
+        systemService = SystemService()
+        systemService.create_system_from_list(my_sys_list)
+        my_system = systemService.system
+        my_system.filename = "filename.fis"
+
+        my_inputs = [["Name='Distance'", 'Range=[0 1]', 'NumMFs=2',
+                      "MF1='Near':'gaussmf',[0.2 0]",
+                      "MF2='Far':'gaussmf',[0.42 1]"],
+                     ["Name='Slope'",
+                      'Range=[0 0.05]',
+                      'NumMFs=3',
+                      "MF1='Low':'trapmf',[-0.01 -0.005 0.001 0.002]",
+                      "MF2='Medium':'trapmf',[0.0015 0.0025 0.004 0.005]",
+                      "MF3='High':'trapmf',[0.004 0.005 0.06 0.07]"],
+                     ["Name='Depth'", 'Range=[0 3000]', 'NumMFs=3',
+                      "MF1='Shallow':'gauss2mf',[10.3 -56.35 6.65 2.384]",
+                      "MF2='Medium':'gauss2mf',[18.6 62.2 17.81 84.92]",
+                      "MF3='Deep':'gauss2mf',[77.9 260 28.3 3042]"]]
+
+        systemService.create_inputs_from_list(my_inputs)
+
+        my_outputs = [["Name='output1'",
+                       'Range=[1 4]',
+                       'NumMFs=4',
+                       "MF1='Lagoon':'gaussmf',[0.4247 1]",
+                       "MF2='Reef':'gaussmf',[0.4247 2]",
+                       "MF3='ForeReef':'gaussmf',[0.4247 3]",
+                       "MF4='Basin':'gaussmf',[0.4247 4]"]]
+
+        systemService.create_outputs_from_list(my_outputs)
+
+        my_exception = "O uso de associação de fácies não foi informado!"
         with self.assertRaises(Exception) as context:
             systemService.valid_import()
         self.assertEqual(my_exception, context.exception.args[0])
@@ -2239,6 +2295,160 @@ class SystemTest(unittest.TestCase):
             systemService.create_rules_from_list(my_list)
         self.assertEqual(my_exception, context.exception.args[0],
                          msg='Test create_rules_from_list exception 5')
+
+    def test_create_dict_facies_association(self):
+        my_sys_list = ["Name='EnvironmentSugeno'",
+                       "Type='sugeno'",
+                       'Version=2.0',
+                       'NumInputs=3',
+                       'NumOutputs=1',
+                       'NumRules=4',
+                       "AndMethod='min'",
+                       "OrMethod='max'",
+                       "ImpMethod='prod'",
+                       "AggMethod='sum'",
+                       "DefuzzMethod='wtaver'"]
+        systemService = SystemService()
+        systemService.create_system_from_list(my_sys_list)
+        my_system = systemService.system
+
+        my_outputs = [["Name='FaciesAssociation'",
+                       'Range=[0 5]',
+                       'NumMFs=6',
+                       "MF1='Cape':'constant',[0]",
+                       "MF2='HighEnergyIntraclastic':'constant',[1]",
+                       "MF3='ModerateEnergyIntraclastic':'constant',[2]",
+                       "MF4='LaminiteRamp':'constant',[3]",
+                       "MF5='SubCoastal':'constant',[4]",
+                       "MF6='Undefined':'constant',[5]"]]
+
+        systemService.create_outputs_from_list(my_outputs)
+        systemService.create_dict_facies_association(True)
+
+        self.assertEqual(True, my_system.use_dict_facies_association,
+                         msg='Test create_dict_facies_association')
+        self.assertEqual({0: 0, 1: 8, 2: 7, 3: 6, 4: 9, 5: 12},
+                         my_system.facies_association,
+                         msg='Test facies_association')
+
+
+    def test_create_dict_facies_association_exception_1(self):
+        my_sys_list = ["Name='EnvironmentSugeno'",
+                       "Type='sugeno'",
+                       'Version=2.0',
+                       'NumInputs=3',
+                       'NumOutputs=1',
+                       'NumRules=4',
+                       "AndMethod='min'",
+                       "OrMethod='max'",
+                       "ImpMethod='prod'",
+                       "AggMethod='sum'",
+                       "DefuzzMethod='wtaver'"]
+        systemService = SystemService()
+        systemService.create_system_from_list(my_sys_list)
+        my_system = systemService.system
+
+        my_inputs = [["Name='Distance'", 'Range=[0 1]', 'NumMFs=2',
+                      "MF1='Near':'gaussmf',[0.2 0]",
+                      "MF2='Far':'gaussmf',[0.42 1]"],
+                     ["Name='Slope'",
+                      'Range=[0 0.05]',
+                      'NumMFs=3',
+                      "MF1='Low':'trapmf',[-0.01 -0.005 0.001 0.002]",
+                      "MF2='Medium':'trapmf',[0.0015 0.0025 0.004 0.005]",
+                      "MF3='High':'trapmf',[0.004 0.005 0.06 0.07]"],
+                     ["Name='Depth'", 'Range=[0 3000]', 'NumMFs=3',
+                      "MF1='Shallow':'gauss2mf',[10.3 -56.35 6.65 2.384]",
+                      "MF2='Medium':'gauss2mf',[18.6 62.2 17.81 84.92]",
+                      "MF3='Deep':'gauss2mf',[77.9 260 28.3 3042]"]]
+
+        systemService.create_inputs_from_list(my_inputs)
+
+        my_outputs = [["Name='FaciesAssociation'",
+                       'Range=[0 5]',
+                       'NumMFs=6',
+                       "MF1='Cape':'linear',[0 0 0 0]",
+                       "MF2='HighEnergyIntraclastic':'constant',[1]",
+                       "MF3='ModerateEnergyIntraclastic':'constant',[2]",
+                       "MF4='LaminiteRamp':'constant',[3]",
+                       "MF5='SubCoastal':'constant',[4]",
+                       "MF6='Undefined':'constant',[5]"]]
+
+        systemService.create_outputs_from_list(my_outputs)
+
+        my_exception = ("O dicionário de fácies somente foi implementado para "
+                        "a função de pertinência Constante!")
+        with self.assertRaises(Exception) as context:
+            systemService.create_dict_facies_association(True)
+
+        self.assertEqual(my_exception, context.exception.args[0],
+                         msg='Test create_dict_facies_association exception 1')
+
+    def test_create_dict_facies_association_exception_2(self):
+        my_sys_list = ["Name='EnvironmentMamdani'",
+                       "Type='mamdani'",
+                       'Version=2.0',
+                       'NumInputs=3',
+                       'NumOutputs=1',
+                       'NumRules=4',
+                       "AndMethod='min'",
+                       "OrMethod='max'",
+                       "ImpMethod='min'",
+                       "AggMethod='max'",
+                       "DefuzzMethod='centroid'"]
+        systemService = SystemService()
+        systemService.create_system_from_list(my_sys_list)
+        my_system = systemService.system
+
+        my_outputs = [["Name='FaciesAssociation'",
+                       'Range=[0 5]',
+                       'NumMFs=1',
+                       "MF1='Cape':'trapmf',[-0.01 -0.005 0.001 0.002]"]]
+
+        systemService.create_outputs_from_list(my_outputs)
+
+        my_exception = ("O dicionário de fácies somente foi implementado para "
+                        "o tipo de  inferência Sugeno!")
+        with self.assertRaises(Exception) as context:
+            systemService.create_dict_facies_association(True)
+
+        self.assertEqual(my_exception, context.exception.args[0],
+                         msg='Test create_dict_facies_association exception 2')
+
+    def test_create_dict_facies_association_exception_3(self):
+        my_sys_list = ["Name='EnvironmentSugeno'",
+                       "Type='sugeno'",
+                       'Version=2.0',
+                       'NumInputs=3',
+                       'NumOutputs=1',
+                       'NumRules=4',
+                       "AndMethod='min'",
+                       "OrMethod='max'",
+                       "ImpMethod='prod'",
+                       "AggMethod='sum'",
+                       "DefuzzMethod='wtaver'"]
+        systemService = SystemService()
+        systemService.create_system_from_list(my_sys_list)
+        my_system = systemService.system
+
+        my_outputs = [["Name='FaciesAssociation'",
+                       'Range=[0 5]',
+                       'NumMFs=6',
+                       "MF1='Error':'constant',[0]",
+                       "MF2='HighEnergyIntraclastic':'constant',[1]",
+                       "MF3='ModerateEnergyIntraclastic':'constant',[2]",
+                       "MF4='LaminiteRamp':'constant',[3]",
+                       "MF5='SubCoastal':'constant',[4]",
+                       "MF6='Undefined':'constant',[5]"]]
+
+        systemService.create_outputs_from_list(my_outputs)
+
+        my_exception = "A Associação de fácies 0.0 não foi cadastrada!"
+        with self.assertRaises(Exception) as context:
+            systemService.create_dict_facies_association(True)
+
+        self.assertEqual(my_exception, context.exception.args[0],
+                         msg='Test create_dict_facies_association exception 3')
 
     def test_import_file_1(self):
         my_filename = "tests/test_data/EnvironmentMamdani.fis"

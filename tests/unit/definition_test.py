@@ -11,6 +11,8 @@ from continentalfuzzy.domain.definition.Blocks import Blocks
 from continentalfuzzy.domain.definition.Connections import Connections
 from continentalfuzzy.domain.definition.ControllerType import ControllerType
 from continentalfuzzy.domain.definition.DefuzzMethods import DefuzzMethods
+from continentalfuzzy.domain.definition.FaciesAssociation import \
+    FaciesAssociation
 from continentalfuzzy.domain.definition.Functions import Functions
 from continentalfuzzy.domain.definition.ImpMethods import ImpMethods
 from continentalfuzzy.domain.definition.mamdani.MamdaniAggMethods import MamdaniAggMethods
@@ -490,3 +492,78 @@ class SugenoOutputFunctionsTest(unittest.TestCase):
 
         self.assertEqual(my_exception, context.exception.args[0],
                          msg="Test SugenoOutputFunctions not found")
+
+
+class FaciesAssociationTest(unittest.TestCase):
+    def test_FaciesAssociation_Cape(self):
+        self.assertEqual(FaciesAssociation['Cape'],
+                         FaciesAssociation.Cape,
+                         msg='Test Cape')
+
+    def test_FaciesAssociation_ShallowPlain(self):
+        self.assertEqual(FaciesAssociation['ShallowPlain'],
+                         FaciesAssociation.ShallowPlain,
+                         msg='Test ShallowPlain')
+
+    def test_FaciesAssociation_LowEnergyUnderwaterPlain(self):
+        self.assertEqual(FaciesAssociation['LowEnergyUnderwaterPlain'],
+                         FaciesAssociation.LowEnergyUnderwaterPlain,
+                         msg='Test LowEnergyUnderwaterPlain')
+
+    def test_FaciesAssociation_InterpatchesPlain(self):
+        self.assertEqual(FaciesAssociation['InterpatchesPlain'],
+                         FaciesAssociation.InterpatchesPlain,
+                         msg='Test InterpatchesPlain')
+
+    def test_FaciesAssociation_ClayeyEmbayment(self):
+        self.assertEqual(FaciesAssociation['ClayeyEmbayment'],
+                         FaciesAssociation.ClayeyEmbayment,
+                         msg='Test ClayeyEmbayment')
+
+    def test_FaciesAssociation_StromatoliteEmbayment(self):
+        self.assertEqual(FaciesAssociation['StromatoliteEmbayment'],
+                         FaciesAssociation.StromatoliteEmbayment,
+                         msg='Test StromatoliteEmbayment')
+
+    def test_FaciesAssociation_LaminiteRamp(self):
+        self.assertEqual(FaciesAssociation['LaminiteRamp'],
+                         FaciesAssociation.LaminiteRamp,
+                         msg='Test LaminiteRamp')
+
+    def test_FaciesAssociation_ModerateEnergyIntraclastic(self):
+        self.assertEqual(FaciesAssociation['ModerateEnergyIntraclastic'],
+                         FaciesAssociation.ModerateEnergyIntraclastic,
+                         msg='Test ModerateEnergyIntraclastic')
+
+    def test_FaciesAssociation_HighEnergyIntraclastic(self):
+        self.assertEqual(FaciesAssociation['HighEnergyIntraclastic'],
+                         FaciesAssociation.HighEnergyIntraclastic,
+                         msg='Test HighEnergyIntraclastic')
+
+    def test_FaciesAssociation_SubCoastal(self):
+        self.assertEqual(FaciesAssociation['SubCoastal'],
+                         FaciesAssociation.SubCoastal,
+                         msg='Test SubCoastal')
+
+    def test_FaciesAssociation_Reef(self):
+        self.assertEqual(FaciesAssociation['Reef'],
+                         FaciesAssociation.Reef,
+                         msg='Test Reef')
+
+    def test_FaciesAssociation_ClayeyClasticDeposit(self):
+        self.assertEqual(FaciesAssociation['ClayeyClasticDeposit'],
+                         FaciesAssociation.ClayeyClasticDeposit,
+                         msg='Test ClayeyClasticDeposit')
+
+    def test_FaciesAssociation_Undefined(self):
+        self.assertEqual(FaciesAssociation['Undefined'],
+                         FaciesAssociation.Undefined,
+                         msg='Test Undefined')
+
+    def test_FaciesAssociation_not_found(self):
+        my_exception = "AridSubCoastal"
+        with self.assertRaises(Exception) as context:
+            _ = FaciesAssociation['AridSubCoastal']
+
+        self.assertEqual(my_exception, context.exception.args[0],
+                         msg="Test FaciesAssociation not found")
