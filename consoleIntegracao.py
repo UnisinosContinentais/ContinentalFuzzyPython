@@ -12,13 +12,13 @@ from continentalfuzzy.applicationservice.FuzzyControlApplicationService import F
 from continentalfuzzy.dto.FuzzyControlCommandInput import FuzzyControlCommandInput
 
 
-print("==========RODANDO O CONSOLE INTEGRACAO MAMDANI ============")
+print("==========RODANDO O CONSOLE INTEGRACAO RAMP_ARID ============")
 
 fuzzyControlCommandInput = FuzzyControlCommandInput()
-fuzzyControlCommandInput.set_filename("test_mamdani.fis")
-fuzzyControlCommandInput.add_fuzzy_inputs("Distance", 0.5)
-fuzzyControlCommandInput.add_fuzzy_inputs("Slope", 0.01)
-fuzzyControlCommandInput.add_fuzzy_inputs("Depth", 30.0)
+fuzzyControlCommandInput.set_filename("Ramp_Arid.fis")
+fuzzyControlCommandInput.add_fuzzy_inputs("Depth", 120)
+fuzzyControlCommandInput.add_fuzzy_inputs("EnergyDissipation", 0.7)
+fuzzyControlCommandInput.set_use_dict_facies_association(True)
 
 fuzzyControlCommandInput.set_fuzzy_output("output1")
 
@@ -26,15 +26,15 @@ fuzzyControlApplicationService = FuzzyControlApplicationService()
 result = fuzzyControlApplicationService.process_fuzzy_control(fuzzyControlCommandInput)
 
 print(result)
-print("==========FINALIZOU O CONSOLE INTEGRACAO MAMDANI ============")
+print("==========FINALIZOU O CONSOLE INTEGRACAO RAMP_ARID ============")
 
-print("==========RODANDO O CONSOLE INTEGRACAO SUGENO ============")
+print("==========RODANDO O CONSOLE INTEGRACAO RAMP_HUMID ============")
 
 fuzzyControlCommandInput = FuzzyControlCommandInput()
-fuzzyControlCommandInput.set_filename("test_sugeno.fis")
-fuzzyControlCommandInput.add_fuzzy_inputs("Distance", 0.5)
-fuzzyControlCommandInput.add_fuzzy_inputs("Slope", 0.01)
-fuzzyControlCommandInput.add_fuzzy_inputs("Depth", 30.0)
+fuzzyControlCommandInput.set_filename("Ramp_Humid.fis")
+fuzzyControlCommandInput.add_fuzzy_inputs("Depth", 120)
+fuzzyControlCommandInput.add_fuzzy_inputs("EnergyDissipation", 0.7)
+fuzzyControlCommandInput.set_use_dict_facies_association(True)
 
 fuzzyControlCommandInput.set_fuzzy_output("output1")
 
@@ -42,4 +42,36 @@ fuzzyControlApplicationService = FuzzyControlApplicationService()
 result = fuzzyControlApplicationService.process_fuzzy_control(fuzzyControlCommandInput)
 
 print(result)
-print("==========FINALIZOU O CONSOLE INTEGRACAO SUGENO ============")
+print("==========FINALIZOU O CONSOLE INTEGRACAO RAMP_HUMID ============")
+
+print("==========RODANDO O CONSOLE INTEGRACAO SHELF_ARID ============")
+
+fuzzyControlCommandInput = FuzzyControlCommandInput()
+fuzzyControlCommandInput.set_filename("Shelf_Arid.fis")
+fuzzyControlCommandInput.add_fuzzy_inputs("Depth", 120)
+fuzzyControlCommandInput.add_fuzzy_inputs("EnergyDissipation", 0.7)
+fuzzyControlCommandInput.set_use_dict_facies_association(True)
+
+fuzzyControlCommandInput.set_fuzzy_output("output1")
+
+fuzzyControlApplicationService = FuzzyControlApplicationService()
+result = fuzzyControlApplicationService.process_fuzzy_control(fuzzyControlCommandInput)
+
+print(result)
+print("==========FINALIZOU O CONSOLE INTEGRACAO SHELF_ARID ============")
+
+print("==========RODANDO O CONSOLE INTEGRACAO SHELF_HUMID ============")
+
+fuzzyControlCommandInput = FuzzyControlCommandInput()
+fuzzyControlCommandInput.set_filename("Shelf_Humid.fis")
+fuzzyControlCommandInput.add_fuzzy_inputs("Depth", 120)
+fuzzyControlCommandInput.add_fuzzy_inputs("EnergyDissipation", 0.7)
+fuzzyControlCommandInput.set_use_dict_facies_association(True)
+
+fuzzyControlCommandInput.set_fuzzy_output("output1")
+
+fuzzyControlApplicationService = FuzzyControlApplicationService()
+result = fuzzyControlApplicationService.process_fuzzy_control(fuzzyControlCommandInput)
+
+print(result)
+print("==========FINALIZOU O CONSOLE INTEGRACAO SHELF_HUMID ============")
