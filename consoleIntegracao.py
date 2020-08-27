@@ -5,8 +5,8 @@ email: rmodena@unisinos.br
 date: July, 2020
 """
 import sys
-#sys.path.append('C:\\Git\\CONTINENTAIS_skfuzzy')
-sys.path.append('R:\continentais\repos\CONTINENTAIS_skfuzzy')
+sys.path.append(basePath)
+
 import os
 from continentalfuzzy.applicationservice.FuzzyControlApplicationService import FuzzyControlApplicationService
 from continentalfuzzy.dto.FuzzyControlCommandInput import FuzzyControlCommandInput
