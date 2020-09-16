@@ -12,7 +12,7 @@ class FuzzyControlCommandInput:
         self.__filename = None
         self.__fuzzy_inputs = dict()
         self.__fuzzy_output = None
-        self.__use_dict_facies_association = False
+        self.__use_dict_facies_association = True
 
     @property
     def filename(self) -> str:
