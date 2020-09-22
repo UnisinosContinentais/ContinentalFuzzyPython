@@ -5,7 +5,11 @@ email: rmodena@unisinos.br
 date: July, 2020
 """
 import sys
-sys.path.append(basePath)
+try:
+    sys.path.append(basePath)
+
+except NameError:
+    pass
 
 import os
 from continentalfuzzy.applicationservice.FuzzyControlApplicationService import FuzzyControlApplicationService
@@ -75,3 +79,21 @@ result = fuzzyControlApplicationService.process_fuzzy_control(fuzzyControlComman
 
 print(result)
 print("==========FINALIZOU O CONSOLE INTEGRACAO SHELF_HUMID ============")
+
+
+print("==========RODANDO INIT E PROCESS ============")
+
+filename = "Shelf_Humid.fis"
+fuzzyControlApplicationService = FuzzyControlApplicationService()
+fuzzyControlApplicationService.init_fuzzy_control(filename)
+
+fuzzyControlCommandInput = FuzzyControlCommandInput()
+fuzzyControlCommandInput.add_fuzzy_inputs("Depth", 120)
+fuzzyControlCommandInput.add_fuzzy_inputs("EnergyDissipation", 0.7)
+
+fuzzyControlCommandInput.set_fuzzy_output("output1")
+
+result = fuzzyControlApplicationService.process_fuzzy_item(fuzzyControlCommandInput)
+
+print(result)
+print("==========FINALIZOU INIT E PROCESS============")
