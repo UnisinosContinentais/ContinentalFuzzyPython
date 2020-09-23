@@ -12,12 +12,16 @@ from continentalfuzzy.dto.ProcessResult import ProcessResult
 from continentalfuzzy.service.SugenoControllerService import \
     SugenoControllerService
 from continentalfuzzy.service.SystemService import SystemService
-
+import numpy as np
+import threading
+import psutil
 
 class FuzzyControlApplicationService:
     def __init__(self):
         self.__fisSystem = None
         self.__fuzzy_controller = None
+        self.__fuzzy_output_matrix = None
+        self.__number_of_cpus = psutil.cpu_count()
 
     @property
     def fisSystem(self):
@@ -123,29 +127,53 @@ class FuzzyControlApplicationService:
         return result.result
 
     def process_fuzzy_matrix(self, fuzzyControlCommandInput: FuzzyControlCommandInput):
-
-        result = FuzzyControlCommandOutput()
-        result.status = ProcessResult.RESULT_ERROR
-
+        self.__fuzzy_output_matrix = np.zeros((fuzzyControlCommandInput.get_num_rows(), fuzzyControlCommandInput.get_num_cols()))
         for row in range(fuzzyControlCommandInput.get_num_rows()):
             for col in range(fuzzyControlCommandInput.get_num_cols()):
-                fuzzyControlCommandInputTemp = FuzzyControlCommandInput()
+                self.process_fuzzy_matrix_item(col, fuzzyControlCommandInput, row)
 
-                for name, matrix in fuzzyControlCommandInput.get_fuzzy_inputs_matrix.items():
-                    fuzzyControlCommandInputTemp.add_fuzzy_inputs(name, matrix[row][col])
-                fuzzyControlCommandInputTemp.set_use_dict_facies_association(True)
-                fuzzyControlCommandInputTemp.set_fuzzy_output("output1")
+    def process_fuzzy_matrix_multithread(self, fuzzyControlCommandInput: FuzzyControlCommandInput):
+        self.__fuzzy_output_matrix = np.zeros((fuzzyControlCommandInput.get_num_rows(), fuzzyControlCommandInput.get_num_cols()))
+        jobs = []
+        step = int(fuzzyControlCommandInput.get_num_rows() / self.__number_of_cpus)
+        for rowStart in range(0, fuzzyControlCommandInput.get_num_rows(), step):
+            thread = threading.Thread(target=self.process_fuzzy_matrix_multithread_slice, args=(fuzzyControlCommandInput, rowStart, min(rowStart + step, fuzzyControlCommandInput.get_num_rows())))
+            jobs.append(thread)
 
-                if self.fisSystem.type == ControllerType.mamdani:
-                    fuzzy_result = self.fuzzyController.fuzzy_calc_single_value(
-                        fuzzyControlCommandInputTemp.fuzzy_inputs,
-                        fuzzyControlCommandInputTemp.fuzzy_output)
+        # Start the threads (i.e. calculate the random number lists)
+        for j in jobs:
+            j.start()
 
-                elif self.fisSystem.type == ControllerType.sugeno:
-                    fuzzy_result = self.fuzzyController.sugeno_calc_single_value(
-                        fuzzyControlCommandInputTemp.fuzzy_inputs)
+        # Ensure all of the threads have finished
+        for j in jobs:
+            j.join()
 
-                result.add_message("Processo executado com sucesso!")
-                result.status = ProcessResult.RESULT_SUCCESS
-                result.result = fuzzy_result
+    def process_fuzzy_matrix_multithread_slice(self, fuzzyControlCommandInput: FuzzyControlCommandInput, rowStart, rowEnd):
+        for row in range(rowStart, rowEnd):
+            for col in range(fuzzyControlCommandInput.get_num_cols()):
+                self.process_fuzzy_matrix_item(col, fuzzyControlCommandInput, row)
+
+    def process_fuzzy_matrix_item(self, col, fuzzyControlCommandInput, row):
+        fuzzy_control_command_input_temp = FuzzyControlCommandInput()
+        for name, matrix in fuzzyControlCommandInput.get_fuzzy_inputs_matrix().items():
+            fuzzy_control_command_input_temp.add_fuzzy_inputs(name, matrix[row][col])
+        fuzzy_control_command_input_temp.set_use_dict_facies_association(True)
+        fuzzy_control_command_input_temp.set_fuzzy_output("output1")
+        if self.fisSystem.type == ControllerType.mamdani:
+            try:
+                self.__fuzzy_output_matrix[row][col] = self.fuzzyController.fuzzy_calc_single_value(
+                    fuzzy_control_command_input_temp.fuzzy_inputs,
+                    fuzzy_control_command_input_temp.fuzzy_output)
+            except Exception:
+                pass
+
+        elif self.fisSystem.type == ControllerType.sugeno:
+            try:
+                self.__fuzzy_output_matrix[row][col] = self.fuzzyController.sugeno_calc_single_value(
+                    fuzzy_control_command_input_temp.fuzzy_inputs)
+            except Exception:
+                pass
+
+    def get_fuzzy_output_matrix(self, row: int, col: int):
+        return self.__fuzzy_output_matrix[row][col]
 

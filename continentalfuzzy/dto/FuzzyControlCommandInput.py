@@ -7,7 +7,6 @@ date: July, 2020
 from typing import Dict
 import numpy as np
 
-
 class FuzzyControlCommandInput:
     def __init__(self):
         self.__filename = None
@@ -46,14 +45,15 @@ class FuzzyControlCommandInput:
         self.__fuzzy_inputs[p_name] = p_value
 
     def get_num_rows(self):
-        self.__num_rows
+        return self.__num_rows
 
     def get_num_cols(self):
-        self.__num_cols
+        return self.__num_cols
 
     def add_fuzzy_inputs_matrix(self, p_row, p_column, p_name, p_value):
         if self.__fuzzy_inputs_matrix.get(p_name) is None:
             self.__fuzzy_inputs_matrix[p_name] = np.zeros((self.__num_rows, self.__num_cols))
+
         self.__fuzzy_inputs_matrix[p_name][p_row][p_column] = p_value
 
     def get_fuzzy_inputs_matrix(self):
