@@ -121,3 +121,31 @@ class FuzzyControlApplicationService:
             result.add_message(ex.args[0])
 
         return result.result
+
+    def process_fuzzy_matrix(self, fuzzyControlCommandInput: FuzzyControlCommandInput):
+
+        result = FuzzyControlCommandOutput()
+        result.status = ProcessResult.RESULT_ERROR
+
+        for row in range(fuzzyControlCommandInput.get_num_rows()):
+            for col in range(fuzzyControlCommandInput.get_num_cols()):
+                fuzzyControlCommandInputTemp = FuzzyControlCommandInput()
+
+                for name, matrix in fuzzyControlCommandInput.get_fuzzy_inputs_matrix.items():
+                    fuzzyControlCommandInputTemp.add_fuzzy_inputs(name, matrix[row][col])
+                fuzzyControlCommandInputTemp.set_use_dict_facies_association(True)
+                fuzzyControlCommandInputTemp.set_fuzzy_output("output1")
+
+                if self.fisSystem.type == ControllerType.mamdani:
+                    fuzzy_result = self.fuzzyController.fuzzy_calc_single_value(
+                        fuzzyControlCommandInputTemp.fuzzy_inputs,
+                        fuzzyControlCommandInputTemp.fuzzy_output)
+
+                elif self.fisSystem.type == ControllerType.sugeno:
+                    fuzzy_result = self.fuzzyController.sugeno_calc_single_value(
+                        fuzzyControlCommandInputTemp.fuzzy_inputs)
+
+                result.add_message("Processo executado com sucesso!")
+                result.status = ProcessResult.RESULT_SUCCESS
+                result.result = fuzzy_result
+

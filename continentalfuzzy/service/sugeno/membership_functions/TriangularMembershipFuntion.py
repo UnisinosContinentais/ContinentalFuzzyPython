@@ -16,13 +16,6 @@ class TriangularMembershipFunction:
         except Exception:
             raise Exception("O parâmetro x precisa ser um número!")
 
-        # Verifica se a lista possui os tipos corretos
-        for val in abc:
-            try:
-                _ = float(val)
-            except Exception:
-                raise Exception("O parâmetro não é um número!")
-
         abc = np.array(abc)
         if np.shape(abc)[0] != 3:
             raise Exception("O parâmetro abc necessita de 3 valores!")

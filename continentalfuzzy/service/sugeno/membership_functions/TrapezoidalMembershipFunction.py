@@ -18,13 +18,6 @@ class TrapezoidalMembershipFunction:
         except Exception:
             raise Exception("O parâmetro x precisa ser um número!")
 
-        # Verifica se a lista possui os tipos corretos
-        for val in abcd:
-            try:
-                _ = float(val)
-            except Exception:
-                raise Exception("O parâmetro não é um número!")
-
         abcd = np.array(abcd)
         if np.shape(abcd)[0] != 4:
             raise Exception("O parâmetro abc necessita de 4 valores!")
