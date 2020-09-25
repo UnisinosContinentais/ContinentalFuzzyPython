@@ -193,9 +193,6 @@ class SugenoControllerService:
         return np.array(list_results)
 
     def sugeno_calc_single_value(self, v_inputs):
-        if len(v_inputs) != len(self.sugeno_controller.inputs):
-            raise Exception("Número de inputs inválido!!")
-
         result = -1
 
         if self.sugeno_controller.fis_system.defuzz_method == DefuzzMethods.wtaver:

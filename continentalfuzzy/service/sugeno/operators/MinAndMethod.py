@@ -10,15 +10,24 @@ from continentalfuzzy.service.sugeno.operators.NotMethod import NotMethod
 class MinAndMethod:
     @classmethod
     def calculate_min_and(cls, inputs, values):
-        results = list()
+        is_first = True
+        min_value = 0
         for r_input in inputs:
             result = r_input.rule_func(values[r_input.name],
                                        **r_input.params)
 
             if r_input.var_not:
-                results.append(NotMethod.calculate_not(result))
+                result = NotMethod.calculate_not(result)
+                if is_first:
+                    min_value = result
+                    is_first = False
+                elif min_value > result:
+                    min_value = result
 
-            else:
-                results.append(result)
+            elif is_first:
+                min_value = result
+                is_first = False
+            elif min_value > result:
+                min_value = result
 
-        return min(results)
+        return min_value
