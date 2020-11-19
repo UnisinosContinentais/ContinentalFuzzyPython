@@ -21,11 +21,11 @@ MF3='Deep':'trapmf',[130 130 10000 10020]
 
 [Input2]
 Name='EnergyDissipation'
-Range=[0 5000]
+Range=[0 9999]
 NumMFs=3
-MF1='Low':'trapmf',[-0.2844 -0.06886 1666 1666]
-MF2='Moderate':'trapmf',[1666 1666 3333 3333]
-MF3='High':'trapmf',[3333 3333 5001 5001]
+MF1='Low':'trapmf',[-0.2844 -0.06886 1500 1500]
+MF2='Moderate':'trapmf',[1500 1500 2500 2500]
+MF3='High':'trapmf',[2500 2500 9999 9999]
 
 [Output1]
 Name='FaciesAssociation'
