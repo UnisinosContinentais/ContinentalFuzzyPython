@@ -15,17 +15,17 @@ DefuzzMethod='wtaver'
 Name='Depth'
 Range=[0 9999]
 NumMFs=3
-MF1='Shallow':'trapmf',[-10020 -9999 20 20]
-MF2='Intermediary':'trapmf',[20 20 130 130]
-MF3='Deep':'trapmf',[130 130 10000 10020]
+MF1='Shallow':'trapmf',[-10020 -9999 10 10]
+MF2='Intermediary':'trapmf',[10 10 35 35]
+MF3='Deep':'trapmf',[35 35 10000 10020]
 
 [Input2]
-Name='EnergyDissipation'
-Range=[0 9999]
+Name='Energy'
+Range=[0 1]
 NumMFs=3
-MF1='Low':'trapmf',[-0.2844 -0.06886 1500 1500]
-MF2='Moderate':'trapmf',[1500 1500 2500 2500]
-MF3='High':'trapmf',[2500 2500 9999 9999]
+MF1='Low':'trapmf',[-0.1 -0.1 0.5 0.5]
+MF2='Moderate':'trapmf',[0.5 0.5 0.7 0.7]
+MF3='High':'trapmf',[0.7 0.7 1.1 1.1]
 
 [Output1]
 Name='FaciesAssociation'
